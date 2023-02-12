@@ -21,7 +21,11 @@ Neste mini projeto é possível também: enviar emails para recuperação de sen
 - ReflectionIT.Mvc.Paging </br>
 - SendGrid </br>
 - Dapper </br>
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore </br>
+- Microsoft.AspNetCore.Identity </br>
 - Microsoft.Data.SqlClient </br>
 - Microsoft.EntityFrameworkCore </br>
 - Microsoft.EntityFrameworkCore.SqlServer </br>
+- Microsoft.EntityFrameworkCore.Tools </br>
+- Microsoft.EntityFrameworkCore.Design </br>
 - Newtonsoft.Json </br> </br>
