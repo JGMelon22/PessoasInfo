@@ -9,8 +9,8 @@ namespace PessoasInfo.Repositories;
 
 public class PessoaRepository : IPessoaRepository
 {
-    private readonly IDbConnection _dbConnection;
     private readonly AppDbContext _context;
+    private readonly IDbConnection _dbConnection;
 
     public PessoaRepository(IDbConnection dbConnection, AppDbContext context)
     {
@@ -25,7 +25,7 @@ public class PessoaRepository : IPessoaRepository
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(addPessoaQuery, new PessoaCreateViewModel()
+        await _dbConnection.ExecuteAsync(addPessoaQuery, new PessoaCreateViewModel
         {
             Nome = pessoaCreateViewModel.Nome
         });
@@ -57,7 +57,7 @@ public class PessoaRepository : IPessoaRepository
 
         var pessoa = await _context.Pessoas
             .Where(x => x.IdPessoa == id)
-            .Select(y => new PessoaDetailViewModel()
+            .Select(y => new PessoaDetailViewModel
             {
                 IdPessoa = y.IdPessoa,
                 Nome = y.Nome
@@ -81,7 +81,7 @@ public class PessoaRepository : IPessoaRepository
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(updatePessoaQuery, new PessoaEditViewModel()
+        await _dbConnection.ExecuteAsync(updatePessoaQuery, new PessoaEditViewModel
         {
             Nome = pessoaEditViewModel.Nome,
             IdPessoa = pessoaEditViewModel.IdPessoa
@@ -94,6 +94,37 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task DeletePessoa(int id)
     {
+        if (id == null || id <= 0)
+            throw new Exception("IdPessoa inválido ou não encontrado!");
+
+        var pessoaToRemove = await _context.Pessoas
+            .Where(x => x.IdPessoa == id)
+            .FirstOrDefaultAsync();
+
+        var telefoneToRemove = await _context.Telefones
+            .Where(x => x.IdPessoa == id)
+            .FirstOrDefaultAsync();
+
+        var detalheToRemove = await _context.Detalhes
+            .Where(x => x.IdPessoa == id)
+            .FirstOrDefaultAsync();
+
+        if (pessoaToRemove == null)
+            throw new Exception("IdPessoa não encontrado!");
+
+        if (telefoneToRemove == null)
+            throw new Exception("IdTelefone não encontrado!");
+
+        if (detalheToRemove == null)
+            throw new Exception("IdDetalhe não encontrado!");
+
+        _context.Remove(pessoaToRemove);
+        _context.Remove(telefoneToRemove);
+        _context.Remove(detalheToRemove);
+
+        await _context.SaveChangesAsync();
+
+        /*
         if (id == null || id <= 0)
             throw new Exception("IdPessoa inválido ou não encontrado!");
 
@@ -117,5 +148,6 @@ public class PessoaRepository : IPessoaRepository
         });
 
         _dbConnection.Close();
+    */
     }
 }

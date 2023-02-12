@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Data;
 using PessoasInfo.Interfaces;
 using PessoasInfo.ViewModels.Detalhe;
-using PessoasInfo.ViewModels.Pessoa;
 
 namespace PessoasInfo.Repositories;
 
 public class DetalheRepository : IDetalheRepository
 {
-    private readonly IDbConnection _dbConnection;
     private readonly AppDbContext _context;
+    private readonly IDbConnection _dbConnection;
 
     public DetalheRepository(IDbConnection dbConnection, AppDbContext context)
     {
@@ -26,7 +25,7 @@ public class DetalheRepository : IDetalheRepository
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(addDetalheQuery, new DetalheCreateViewModel()
+        await _dbConnection.ExecuteAsync(addDetalheQuery, new DetalheCreateViewModel
         {
             DetalheTexto = detalheCreateViewModel.DetalheTexto,
             IdPessoa = detalheCreateViewModel.IdPessoa
@@ -60,7 +59,7 @@ public class DetalheRepository : IDetalheRepository
 
         var detalhe = await _context.Detalhes
             .Where(x => x.IdDetalhe == id)
-            .Select(y => new DetalheDetailViewModel()
+            .Select(y => new DetalheDetailViewModel
             {
                 IdDetalhe = y.IdDetalhe,
                 DetalheTexto = y.DetalheTexto,
@@ -85,7 +84,7 @@ public class DetalheRepository : IDetalheRepository
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(updateDetalheQuery, new DetalheEditViewModel()
+        await _dbConnection.ExecuteAsync(updateDetalheQuery, new DetalheEditViewModel
         {
             DetalheTexto = detalheEditViewModel.DetalheTexto,
             IdDetalhe = detalheEditViewModel.IdDetalhe
@@ -101,17 +100,14 @@ public class DetalheRepository : IDetalheRepository
         if (id == null || id <= 0)
             throw new Exception("IdDetalhe inválido ou não encontrado!");
 
-        var deleteDetalheQuery = @"DELETE 
-                                   FROM Detalhes
-                                   WHERE IdDatalhe = @Id;";
+        var detalheToRemove = await _context.Detalhes
+            .Where(x => x.IdDetalhe == id)
+            .FirstOrDefaultAsync();
 
-        _dbConnection.Open();
+        if (detalheToRemove == null)
+            throw new Exception("IdDetalhe não encontrado!");
 
-        await _dbConnection.ExecuteAsync(deleteDetalheQuery, new DetalheDetailViewModel()
-        {
-            IdDetalhe = id
-        });
-
-        _dbConnection.Close();
+        _context.Remove(detalheToRemove);
+        await _context.SaveChangesAsync();
     }
 }
