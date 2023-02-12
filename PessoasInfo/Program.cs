@@ -2,6 +2,8 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Data;
+using PessoasInfo.Interfaces;
+using PessoasInfo.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // DI Dapper
 builder.Services.AddScoped<IDbConnection>(x =>
     new SqlConnection(builder.Configuration.GetConnectionString("Default")));
+
+// DI ModelServices
+builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+builder.Services.AddScoped<IDetalheRepository, DetalheRepository>();
+builder.Services.AddScoped<ITelefoneRepository, TelefoneRepository>();
 
 var app = builder.Build();
 
