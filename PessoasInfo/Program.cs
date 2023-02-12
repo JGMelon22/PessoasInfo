@@ -1,3 +1,5 @@
+using System.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Data;
 
@@ -9,6 +11,10 @@ builder.Services.AddControllersWithViews();
 // DI DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// DI Dapper
+builder.Services.AddScoped<IDbConnection>(x =>
+    new SqlConnection(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
 
