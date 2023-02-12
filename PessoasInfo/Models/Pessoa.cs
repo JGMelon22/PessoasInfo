@@ -11,4 +11,7 @@ public class Pessoa
     [Key] public int IdPessoa { get; set; }
 
     [Required] public string Nome { get; set; } = string.Empty!;
+
+    public List<Detalhe>? Detalhes { get; set; }
+    public List<Telefone>? Telefones { get; set; }
 }
