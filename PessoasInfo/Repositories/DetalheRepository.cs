@@ -36,7 +36,7 @@ public class DetalheRepository : IDetalheRepository
         return detalheCreateViewModel;
     }
 
-    public async Task<IEnumerable<DetalheDetailViewModel>> GetDetalhes()
+    public async Task<IEnumerable<DetalheIndexViewModel>> GetDetalhes()
     {
         var getDetalhesQuery = @"SELECT IdDetalhe, 
                                    DetalheTexto,
@@ -45,21 +45,21 @@ public class DetalheRepository : IDetalheRepository
 
         _dbConnection.Open();
 
-        var result = await _dbConnection.QueryAsync<DetalheDetailViewModel>(getDetalhesQuery);
+        var result = await _dbConnection.QueryAsync<DetalheIndexViewModel>(getDetalhesQuery);
 
         _dbConnection.Close();
 
         return result.ToList();
     }
 
-    public async Task<DetalheDetailViewModel> GetDetalhe(int id)
+    public async Task<DetalheIndexViewModel> GetDetalhe(int id)
     {
         if (id == null || id <= 0)
             throw new Exception("IdDetalhe inválido ou não encontrado!");
 
         var detalhe = await _context.Detalhes
             .Where(x => x.IdDetalhe == id)
-            .Select(y => new DetalheDetailViewModel
+            .Select(y => new DetalheIndexViewModel
             {
                 IdDetalhe = y.IdDetalhe,
                 DetalheTexto = y.DetalheTexto,

@@ -1,6 +1,6 @@
 namespace PessoasInfo.ViewModels.Detalhe;
 
-public class DetalheDetailViewModel
+public class DetalheIndexViewModel
 {
     [Required] public int IdDetalhe { get; set; }
 

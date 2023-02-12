@@ -22,10 +22,18 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-light nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link active text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vizualizar Cadastros</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Index">Pessoas</a>
+                            <a class="dropdown-item" href="#">Telefones</a>
+                            <a class="dropdown-item" href="#">Detalhes</a>
+                            <div class="dropdown-divider"></div>
+                            @* Aqui será chamado a action responsável pelo INNER JOIN entre as 3 tabelas *@
+                            <a class="dropdown-item fst-italic" href="#">Pessoas Cruzadas</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -40,7 +48,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2023 - PessoasInfo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2023 - PessoasInfo - <a href="https://github.com/JGMelon22/PessoasInfo">Repository</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

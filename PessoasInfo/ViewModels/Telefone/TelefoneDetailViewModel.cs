@@ -1,6 +1,6 @@
 namespace PessoasInfo.ViewModels.Telefone;
 
-public class TelefoneDetailViewModel
+public class TelefoneIndexlViewModel
 {
     [Key] public int IdTelefone { get; set; }
 

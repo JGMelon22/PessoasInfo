@@ -35,29 +35,29 @@ public class PessoaRepository : IPessoaRepository
         return pessoaCreateViewModel;
     }
 
-    public async Task<IEnumerable<PessoaDetailViewModel>> GetPessoas()
+    public async Task<IEnumerable<PessoaIndexViewModel>> GetPessoas()
     {
-        var getPessoasQuery = @"SELECT IdPessoa,
-                                       Nome
+        var getPessoasQuery = @"SELECT TOP 20 IdPessoa,
+                                              Nome
                                 FROM Pessoas;";
 
         _dbConnection.Open();
 
-        var result = await _dbConnection.QueryAsync<PessoaDetailViewModel>(getPessoasQuery);
+        var result = await _dbConnection.QueryAsync<PessoaIndexViewModel>(getPessoasQuery);
 
         _dbConnection.Close();
 
         return result.ToList();
     }
 
-    public async Task<PessoaDetailViewModel> GetPessoa(int id)
+    public async Task<PessoaIndexViewModel> GetPessoa(int id)
     {
         if (id == null && id <= 0)
             throw new Exception("IdPessoa inválido ou não encontrado!");
 
         var pessoa = await _context.Pessoas
             .Where(x => x.IdPessoa == id)
-            .Select(y => new PessoaDetailViewModel
+            .Select(y => new PessoaIndexViewModel
             {
                 IdPessoa = y.IdPessoa,
                 Nome = y.Nome

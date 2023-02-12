@@ -36,7 +36,7 @@ public class TelefoneRepository : ITelefoneRepository
         return telefoneCreateViewModel;
     }
 
-    public async Task<IEnumerable<TelefoneDetailViewModel>> GetTelefones()
+    public async Task<IEnumerable<TelefoneIndexlViewModel>> GetTelefones()
     {
         var getTelefonesQuery = @"SELECT IdTelefone,
                                          TelefoneTexto,
@@ -46,21 +46,21 @@ public class TelefoneRepository : ITelefoneRepository
 
         _dbConnection.Open();
 
-        var result = await _dbConnection.QueryAsync<TelefoneDetailViewModel>(getTelefonesQuery);
+        var result = await _dbConnection.QueryAsync<TelefoneIndexlViewModel>(getTelefonesQuery);
 
         _dbConnection.Close();
 
         return result.ToList();
     }
 
-    public async Task<TelefoneDetailViewModel> GetTelefone(int id)
+    public async Task<TelefoneIndexlViewModel> GetTelefone(int id)
     {
         if (id == null || id <= 0)
             throw new Exception("IdTelefone inválido ou não encontrado!");
 
         var telefone = await _context.Telefones
             .Where(x => x.IdTelefone == id)
-            .Select(y => new TelefoneDetailViewModel
+            .Select(y => new TelefoneIndexlViewModel
             {
                 TelefoneTexto = y.TelefoneTexto
             })

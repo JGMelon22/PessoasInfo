@@ -1,6 +1,6 @@
 namespace PessoasInfo.ViewModels.Pessoa;
 
-public class PessoaDetailViewModel
+public class PessoaIndexViewModel
 {
     [Display(Name = "Id")] [Key] public int IdPessoa { get; set; }
 

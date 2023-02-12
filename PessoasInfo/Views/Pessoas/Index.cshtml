@@ -1,0 +1,35 @@
+@model IEnumerable<PessoasInfo.ViewModels.Pessoa.PessoaIndexViewModel>
+
+<h3 class="text-success">Top 20 Registros Tabela Pessoas</h3>
+
+<br/>
+
+<form asp-action="Index" method="get">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id")
+            </th>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPessoa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
