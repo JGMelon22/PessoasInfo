@@ -8,8 +8,12 @@ namespace PessoasInfo.Models;
 [Index(nameof(IdPessoa))]
 public class Pessoa
 {
-    [Key] public int IdPessoa { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("IdPessoa")]
+    public int IdPessoa { get; set; }
 
+    [Column("Nome", TypeName = "VARCHAR(100)")]
     [Required] public string Nome { get; set; } = string.Empty!;
 
     public List<Detalhe>? Detalhes { get; set; }
