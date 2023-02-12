@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>a17f60ec-2006-43f4-bed6-96bb097c2ab6</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,7 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Data"/>
         <Folder Include="Interfaces"/>
         <Folder Include="Repositories"/>
         <Folder Include="Services"/>
