@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace PessoasInfo.ViewModels.Pessoa;
 
 public class PessoaCreateViewModel

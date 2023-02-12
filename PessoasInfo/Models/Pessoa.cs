@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +13,8 @@ public class Pessoa
     public int IdPessoa { get; set; }
 
     [Column("Nome", TypeName = "VARCHAR(100)")]
-    [Required] public string Nome { get; set; } = string.Empty!;
+    [Required]
+    public string Nome { get; set; } = string.Empty!;
 
     public List<Detalhe>? Detalhes { get; set; }
     public List<Telefone>? Telefones { get; set; }
