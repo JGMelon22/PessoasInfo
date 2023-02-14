@@ -94,60 +94,29 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task DeletePessoa(int id)
     {
-        if (id == null || id <= 0)
-            throw new Exception("IdPessoa inválido ou não encontrado!");
-
-        var pessoaToRemove = await _context.Pessoas
-            .Where(x => x.IdPessoa == id)
-            .FirstOrDefaultAsync();
-
-        var telefoneToRemove = await _context.Telefones
-            .Where(x => x.IdPessoa == id)
-            .FirstOrDefaultAsync();
-
-        var detalheToRemove = await _context.Detalhes
-            .Where(x => x.IdPessoa == id)
-            .FirstOrDefaultAsync();
-
-        if (pessoaToRemove == null)
-            throw new Exception("IdPessoa não encontrado!");
-
-        if (telefoneToRemove == null)
-            throw new Exception("IdTelefone não encontrado!");
-
-        if (detalheToRemove == null)
-            throw new Exception("IdDetalhe não encontrado!");
-
-        _context.Remove(pessoaToRemove);
-        _context.Remove(telefoneToRemove);
-        _context.Remove(detalheToRemove);
-
-        await _context.SaveChangesAsync();
-
-        /*
+        
         if (id == null || id <= 0)
             throw new Exception("IdPessoa inválido ou não encontrado!");
 
         var deletePessoaQuery = @"DELETE 
                                   FROM Detalhes
-                                  WHERE IdPessoa = @Id;
+                                  WHERE IdPessoa = @IdPessoa;
 
                                   DELETE 
                                   FROM Telefones
-                                  WHERE IdPessoa = @Id;
+                                  WHERE IdPessoa = @IdPessoa;
 
                                   DELETE 
                                   FROM Pessoas
-                                  WHERE IdPessoa = @Id;";
+                                  WHERE IdPessoa = @IdPessoa;";
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(deletePessoaQuery, new PessoaEditViewModel()
+        await _dbConnection.ExecuteAsync(deletePessoaQuery, new
         {
             IdPessoa = id
         });
 
         _dbConnection.Close();
-    */
     }
 }

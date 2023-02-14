@@ -23,7 +23,7 @@ public class PessoasController : Controller
     }
 
     // Delete Pessoa
-    [HttpDelete]
+    [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
         var pessoa = await _pessoaRepository.GetPessoa(id);
