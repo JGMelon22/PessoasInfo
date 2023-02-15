@@ -21,7 +21,7 @@ public class DetalheRepository : IDetalheRepository
     public async Task<DetalheCreateViewModel> AddDetalhe(DetalheCreateViewModel detalheCreateViewModel)
     {
         var addDetalheQuery = @"INSERT INTO Detalhes(DetalheTexto, IdPessoa)
-                                @VALUES(@DetalheTexto, @IdPessoa);";
+                                VALUES(@DetalheTexto, @IdPessoa);";
 
         _dbConnection.Open();
 

@@ -1,4 +1,6 @@
 using PessoasInfo.Interfaces;
+using PessoasInfo.Models;
+using PessoasInfo.ViewModels.Detalhe;
 
 namespace PessoasInfo.Controllers;
 
@@ -44,6 +46,25 @@ public class DetalhesController : Controller
             return NotFound();
 
         return await Task.Run(() => View(detalhe));
+    }
+
+    // Adicionar novo detalhe
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        return await Task.Run(View);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(DetalheCreateViewModel detalheCreateViewModel)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _detalheRepository.AddDetalhe(detalheCreateViewModel);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 
     [HttpPost]
