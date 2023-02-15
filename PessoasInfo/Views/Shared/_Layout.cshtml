@@ -25,7 +25,7 @@
                         <a class="nav-link active text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vizualizar Cadastros</a>
+                        <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vizualizar Cadastros</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Index">Pessoas</a>
                             <a class="dropdown-item" href="#">Telefones</a>
@@ -33,6 +33,15 @@
                             <div class="dropdown-divider"></div>
                             @* Aqui será chamado a action responsável pelo INNER JOIN entre as 3 tabelas *@
                             <a class="dropdown-item fst-italic" href="#">Pessoas Cruzadas</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Adicionar novos Dados</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Create">Nova Pessoa</a>
+                            <a class="dropdown-item" href="#">Novo Telefone</a>
+                            <a class="dropdown-item" href="#">Novo Detalhe</a>
+                            <div class="dropdown-divider"></div>
                         </div>
                     </li>
                 </ul>

@@ -24,6 +24,9 @@
     <a asp-action="Index">Retornar a Listagem</a>
 </div>
 
+@* Aqui chama a validação. Originalmente eu fazia ~assim: *@
+@* @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" }) *@
+
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

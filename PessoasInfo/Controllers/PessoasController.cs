@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Interfaces;
 using PessoasInfo.ViewModels.Pessoa;
 
@@ -21,6 +20,18 @@ public class PessoasController : Controller
         return pessoas != null
             ? await Task.Run(() => View(pessoas))
             : await Task.Run(NoContent);
+    }
+
+    // Detalhe de uma pessoa 
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        if (id == null || id <= 0)
+            return NotFound();
+
+        var pessoa = await _pessoaRepository.GetPessoa(id);
+
+        return await Task.Run(() => View(pessoa));
     }
 
     // Adicionar nova pessoa

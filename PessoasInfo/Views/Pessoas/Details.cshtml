@@ -1,0 +1,25 @@
+@model PessoasInfo.ViewModels.Pessoa.PessoaIndexViewModel
+
+<h3 class="text-decoration-underline">Detalhes da Pessoa</h3>
+
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2 t">
+            @Html.DisplayNameFor(model => model.IdPessoa):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdPessoa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    @* <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | *@
+    <a asp-action="Index">Retornar a Listagem</a>
+</div>
