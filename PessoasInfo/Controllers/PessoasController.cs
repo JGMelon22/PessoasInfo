@@ -53,6 +53,33 @@ public class PessoasController : Controller
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 
+    // Editar pessoa
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var pessoa = await _pessoaRepository.GetPessoa(id);
+
+        if (id == null || id <= 0)
+            return NotFound();
+
+        return await Task.Run(() => View(pessoa));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, PessoaEditViewModel pessoaEditViewModel)
+    {
+        if (id != pessoaEditViewModel.IdPessoa)
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _pessoaRepository.UpdatePessoa(id, pessoaEditViewModel);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
+
     // Delete Pessoa
     [HttpGet]
     public async Task<IActionResult> Delete(int id)

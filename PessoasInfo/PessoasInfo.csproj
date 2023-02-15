@@ -29,8 +29,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Content\Images"/>
         <Folder Include="Services"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="wwwroot\Content\Images\Carregando.gif"/>
     </ItemGroup>
 
 </Project>

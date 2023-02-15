@@ -77,7 +77,7 @@ public class PessoaRepository : IPessoaRepository
 
         var updatePessoaQuery = @"UPDATE Pessoas
                                   SET Nome = @Nome
-                                  WHERE IdPessoa = @Id;";
+                                  WHERE IdPessoa = @IdPessoa;";
 
         _dbConnection.Open();
 

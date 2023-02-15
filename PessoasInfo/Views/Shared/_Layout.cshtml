@@ -27,7 +27,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vizualizar Cadastros</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Index">Pessoas</a>
+                            <a id="Listar" class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Index">Pessoas</a>
                             <a class="dropdown-item" href="#">Telefones</a>
                             <a class="dropdown-item" href="#">Detalhes</a>
                             <div class="dropdown-divider"></div>
@@ -53,6 +53,10 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
+</div>
+
+<div id="CarregandoLista" class="text-center" style="display: none">
+    <img width="30%" src="~/Content/Images/Carregando.gif" class="rounded" alt="">
 </div>
 
 <footer class="border-top footer text-muted">
