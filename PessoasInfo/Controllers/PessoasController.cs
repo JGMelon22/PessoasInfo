@@ -19,7 +19,7 @@ public class PessoasController : Controller
         var pessoas = await _pessoaRepository.GetPessoas();
         return pessoas != null
             ? await Task.Run(() => View(pessoas))
-            : await Task.Run(NoContent);
+            : NoContent();
     }
 
     // Detalhe de uma pessoa 
