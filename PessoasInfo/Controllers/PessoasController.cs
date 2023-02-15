@@ -87,11 +87,9 @@ public class PessoasController : Controller
         var pessoa = await _pessoaRepository.GetPessoa(id);
 
         if (id == null || pessoa == null)
-            return await Task.Run(NotFound);
+            return NotFound();
 
-        var pessoaToRemove = await _pessoaRepository.GetPessoa(id);
-
-        return await Task.Run(() => View(pessoaToRemove));
+        return await Task.Run(() => View(pessoa));
     }
 
     [HttpPost]
@@ -102,7 +100,7 @@ public class PessoasController : Controller
         var pessoa = await _pessoaRepository.GetPessoa(id);
 
         if (id == null || pessoa == null)
-            return await Task.Run(NotFound);
+            return NotFound();
 
         await _pessoaRepository.DeletePessoa(id);
 

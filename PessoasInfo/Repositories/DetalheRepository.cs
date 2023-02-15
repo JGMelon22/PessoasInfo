@@ -38,9 +38,9 @@ public class DetalheRepository : IDetalheRepository
 
     public async Task<IEnumerable<DetalheIndexViewModel>> GetDetalhes()
     {
-        var getDetalhesQuery = @"SELECT TOP 20 IdDetalhe, 
-                                               DetalheTexto,
-                                               IdPessoa
+        var getDetalhesQuery = @"SELECT TOP 100 IdDetalhe, 
+                                                DetalheTexto,
+                                                IdPessoa
                                  FROM Detalhes;";
 
         _dbConnection.Open();
@@ -100,14 +100,17 @@ public class DetalheRepository : IDetalheRepository
         if (id == null || id <= 0)
             throw new Exception("IdDetalhe inválido ou não encontrado!");
 
-        var detalheToRemove = await _context.Detalhes
-            .Where(x => x.IdDetalhe == id)
-            .FirstOrDefaultAsync();
+        var deleteDetalheQuery = @"DELETE 
+                                   FROM Detalhes
+                                   WHERE IdDetalhe = @IdDetalhe;";
 
-        if (detalheToRemove == null)
-            throw new Exception("IdDetalhe não encontrado!");
+        _dbConnection.Open();
 
-        _context.Remove(detalheToRemove);
-        await _context.SaveChangesAsync();
+        await _dbConnection.ExecuteAsync(deleteDetalheQuery, new
+        {
+            IdDetalhe = id
+        });
+
+        _dbConnection.Close();
     }
 }

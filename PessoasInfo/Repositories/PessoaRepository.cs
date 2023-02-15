@@ -37,8 +37,8 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task<IEnumerable<PessoaIndexViewModel>> GetPessoas()
     {
-        var getPessoasQuery = @"SELECT TOP 20 IdPessoa,
-                                              Nome
+        var getPessoasQuery = @"SELECT TOP 100 IdPessoa,
+                                               Nome
                                 FROM Pessoas;";
 
         _dbConnection.Open();

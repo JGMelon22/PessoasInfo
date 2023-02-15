@@ -33,4 +33,31 @@ public class DetalhesController : Controller
 
         return await Task.Run(() => View(detalhe));
     }
+
+    // Delete Detalhe
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var detalhe = await _detalheRepository.GetDetalhe(id);
+
+        if (id == null || detalhe == null)
+            return NotFound();
+
+        return await Task.Run(() => View(detalhe));
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var detalhe = await _detalheRepository.GetDetalhe(id);
+
+        if (id == null || detalhe == null)
+            return NotFound();
+
+        await _detalheRepository.DeleteDetalhe(id);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
 }

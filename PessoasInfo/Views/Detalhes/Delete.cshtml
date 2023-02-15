@@ -1,0 +1,26 @@
+@model PessoasInfo.ViewModels.Detalhe.DetalheIndexViewModel
+
+<h3>Deseja deletar esse detalhe do sistema?</h3>
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayName("Id Chave Pessoa Atrelada")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdPessoa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetalheTexto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.DetalheTexto, new { @readonly = "readonly", style = "min-width: 100%" })
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdPessoa">
+        <input type="submit" Value="Deletar" class="btn btn-danger"/>
+        <a asp-action="Index">Retornar a Listagem</a>
+    </form>
+</div>

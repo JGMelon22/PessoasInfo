@@ -28,8 +28,8 @@
                         <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Vizualizar Cadastros</a>
                         <div class="dropdown-menu">
                             <a id="Listar" class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Index">Pessoas</a>
+                            <a id="ListarDetalhes" class="dropdown-item" asp-area="" asp-controller="Detalhes" asp-action="Index">Detalhes</a>
                             <a class="dropdown-item" href="#">Telefones</a>
-                            <a class="dropdown-item" href="#">Detalhes</a>
                             <div class="dropdown-divider"></div>
                             @* Aqui será chamado a action responsável pelo INNER JOIN entre as 3 tabelas *@
                             <a class="dropdown-item fst-italic" href="#">Pessoas Cruzadas</a>
@@ -39,8 +39,8 @@
                         <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Adicionar novos Dados</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" asp-area="" asp-controller="Pessoas" asp-action="Create">Nova Pessoa</a>
-                            <a class="dropdown-item" href="#">Novo Telefone</a>
                             <a class="dropdown-item" href="#">Novo Detalhe</a>
+                            <a class="dropdown-item" href="#">Novo Telefone</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </li>
