@@ -96,14 +96,17 @@ public class TelefoneRepository : ITelefoneRepository
         if (id == null || id <= 0)
             throw new Exception("IdTelefone inválido ou não encontrado!");
 
-        var telefoneToRemove = await _context.Telefones
-            .Where(x => x.IdTelefone == id)
-            .FirstOrDefaultAsync();
+        var telefoneDeleteQuery = @"DELETE
+                                    FROM Telefones
+                                    WHERE IdTelefone = @IdTelefone;";
 
-        if (telefoneToRemove == null)
-            throw new Exception("IdTelefone não encontrado!");
+        _dbConnection.Open();
 
-        _context.Remove(telefoneToRemove);
-        await _context.SaveChangesAsync();
+        await _dbConnection.ExecuteAsync(telefoneDeleteQuery, new
+        {
+            IdTelefone = id
+        });
+
+        _dbConnection.Close();
     }
 }
