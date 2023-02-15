@@ -1,4 +1,3 @@
-using PessoasInfo.Interfaces;
 using PessoasInfo.ViewModels.Detalhe;
 
 namespace PessoasInfo.Controllers;
@@ -87,9 +86,23 @@ public class DetalhesController : Controller
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
-    
-    // Editar Detalhe
 
+    // Editar Detalhe
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        if (id == null || id <= 0)
+            return NotFound();
+
+        var detalhe = await _detalheRepository.GetDetalhe(id);
+
+        return await Task.Run(() => View(detalhe));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, DetalheEditViewModel detalheEditViewModel)
+    
     // Error
     public async Task<IActionResult> Error()
     {

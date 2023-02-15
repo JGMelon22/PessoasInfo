@@ -57,10 +57,10 @@ public class PessoasController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var pessoa = await _pessoaRepository.GetPessoa(id);
-
         if (id == null || id <= 0)
             return NotFound();
+        
+        var pessoa = await _pessoaRepository.GetPessoa(id);
 
         return await Task.Run(() => View(pessoa));
     }

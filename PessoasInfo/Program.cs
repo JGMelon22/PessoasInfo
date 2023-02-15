@@ -1,8 +1,6 @@
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using PessoasInfo.Data;
-using PessoasInfo.Interfaces;
 using PessoasInfo.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
