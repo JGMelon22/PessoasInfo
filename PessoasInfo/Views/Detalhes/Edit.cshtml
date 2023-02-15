@@ -1,18 +1,14 @@
-@model TModel
+@model PessoasInfo.ViewModels.Detalhe.DetalheIndexViewModel
 
-@{
-    Layout = null;
-}
+<h3 class="text-decoration-underline">Editar Dados</h3>
+<hr/>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdDetalhe"/>
+            <div class="form"></div>
+        </form>
+    </div>
 </div>
-</body>
-</html>

@@ -102,7 +102,18 @@ public class DetalhesController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, DetalheEditViewModel detalheEditViewModel)
-    
+    {
+        if (id == null || id <= 0)
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _detalheRepository.UpdateDetalhe(id, detalheEditViewModel);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
+
     // Error
     public async Task<IActionResult> Error()
     {

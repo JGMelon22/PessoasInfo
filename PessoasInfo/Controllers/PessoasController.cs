@@ -1,4 +1,3 @@
-using PessoasInfo.Interfaces;
 using PessoasInfo.ViewModels.Pessoa;
 
 namespace PessoasInfo.Controllers;
@@ -59,7 +58,7 @@ public class PessoasController : Controller
     {
         if (id == null || id <= 0)
             return NotFound();
-        
+
         var pessoa = await _pessoaRepository.GetPessoa(id);
 
         return await Task.Run(() => View(pessoa));

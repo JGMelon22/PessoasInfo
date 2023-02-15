@@ -1,8 +1,6 @@
 using System.Data;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
-using PessoasInfo.Data;
-using PessoasInfo.Interfaces;
 using PessoasInfo.ViewModels.Telefone;
 
 namespace PessoasInfo.Repositories;
