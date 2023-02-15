@@ -1,5 +1,6 @@
-using DocumentFormat.OpenXml.Drawing;
+using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Interfaces;
+using PessoasInfo.ViewModels.Pessoa;
 
 namespace PessoasInfo.Controllers;
 
@@ -20,6 +21,25 @@ public class PessoasController : Controller
         return pessoas != null
             ? await Task.Run(() => View(pessoas))
             : await Task.Run(NoContent);
+    }
+
+    // Adicionar nova pessoa
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        return await Task.Run(View);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(PessoaCreateViewModel pessoaCreateViewModel)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _pessoaRepository.AddPessoa(pessoaCreateViewModel);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 
     // Delete Pessoa

@@ -94,7 +94,6 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task DeletePessoa(int id)
     {
-        
         if (id == null || id <= 0)
             throw new Exception("IdPessoa inválido ou não encontrado!");
 
