@@ -76,7 +76,7 @@ public class TelefoneRepository : ITelefoneRepository
     {
         var updateTelefoneQuery = @"UPDATE Telefones
                                     SET TelefoneTexto = @TelefoneTexto
-                                    WHERE IdTelefone = @Id";
+                                    WHERE IdTelefone = @IdTelefone";
 
         _dbConnection.Open();
 

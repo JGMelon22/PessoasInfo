@@ -38,10 +38,10 @@ public class DetalheRepository : IDetalheRepository
 
     public async Task<IEnumerable<DetalheIndexViewModel>> GetDetalhes()
     {
-        var getDetalhesQuery = @"SELECT IdDetalhe, 
-                                   DetalheTexto,
-                                   IdPessoa
-                            FROM Detalhes;";
+        var getDetalhesQuery = @"SELECT TOP 20 IdDetalhe, 
+                                               DetalheTexto,
+                                               IdPessoa
+                                 FROM Detalhes;";
 
         _dbConnection.Open();
 
@@ -80,7 +80,7 @@ public class DetalheRepository : IDetalheRepository
 
         var updateDetalheQuery = @"UPDATE Detalhes
                                    SET DetalheTexto = @DetalheTexto
-                                   WHERE IdDetalhe = @Id";
+                                   WHERE IdDetalhe = @IdDetalhe";
 
         _dbConnection.Open();
 
