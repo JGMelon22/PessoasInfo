@@ -1,5 +1,4 @@
 using PessoasInfo.Interfaces;
-using PessoasInfo.Models;
 using PessoasInfo.ViewModels.Detalhe;
 
 namespace PessoasInfo.Controllers;
@@ -62,7 +61,14 @@ public class DetalhesController : Controller
         if (!ModelState.IsValid)
             return BadRequest();
 
-        await _detalheRepository.AddDetalhe(detalheCreateViewModel);
+        try
+        {
+            await _detalheRepository.AddDetalhe(detalheCreateViewModel);
+        }
+        catch (Exception)
+        {
+            return RedirectToAction("Error", "Detalhes");
+        }
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
@@ -80,5 +86,13 @@ public class DetalhesController : Controller
         await _detalheRepository.DeleteDetalhe(id);
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
+    
+    // Editar Detalhe
+
+    // Error
+    public async Task<IActionResult> Error()
+    {
+        return await Task.Run(View);
     }
 }
