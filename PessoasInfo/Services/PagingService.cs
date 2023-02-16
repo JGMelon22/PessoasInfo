@@ -17,7 +17,7 @@ public class PagingService : IPagingService
     {
         var result = _context.Pessoas
             .AsNoTracking()
-            .Select(x => new PessoaIndexViewModel()
+            .Select(x => new PessoaIndexViewModel
             {
                 IdPessoa = x.IdPessoa,
                 Nome = x.Nome

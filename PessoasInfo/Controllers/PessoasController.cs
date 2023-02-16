@@ -4,8 +4,8 @@ namespace PessoasInfo.Controllers;
 
 public class PessoasController : Controller
 {
-    private readonly IPessoaRepository _pessoaRepository;
     private readonly IPagingService _pagingService;
+    private readonly IPessoaRepository _pessoaRepository;
 
     public PessoasController(IPessoaRepository pessoaRepository, IPagingService pagingService)
     {

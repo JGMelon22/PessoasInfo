@@ -1,5 +1,5 @@
-using ReflectionIT.Mvc.Paging;
 using PessoasInfo.ViewModels.Pessoa;
+using ReflectionIT.Mvc.Paging;
 
 namespace PessoasInfo.Interfaces;
 

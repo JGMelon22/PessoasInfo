@@ -35,9 +35,10 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task<IEnumerable<PessoaIndexViewModel>> GetPessoas()
     {
-        var getPessoasQuery = @"SELECT TOP 100 IdPessoa,
-                                               Nome
-                                FROM Pessoas;";
+        var getPessoasQuery = @"SELECT TOP(5) PERCENT IdPessoa,
+                                                       Nome
+                                            FROM Pessoas
+                                            ORDER BY IdPessoa;";
 
         _dbConnection.Open();
 
@@ -79,10 +80,9 @@ public class PessoaRepository : IPessoaRepository
 
         _dbConnection.Open();
 
-        await _dbConnection.ExecuteAsync(updatePessoaQuery, new PessoaEditViewModel
+        await _dbConnection.ExecuteAsync(updatePessoaQuery, new
         {
-            Nome = pessoaEditViewModel.Nome,
-            IdPessoa = pessoaEditViewModel.IdPessoa
+            pessoaEditViewModel.Nome, pessoaEditViewModel.IdPessoa
         });
 
         _dbConnection.Close();
