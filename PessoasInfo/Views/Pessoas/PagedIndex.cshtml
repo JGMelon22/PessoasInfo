@@ -1,0 +1,45 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ReflectionIT.Mvc.Paging.PagingList<PessoasInfo.ViewModels.Pessoa.PessoaIndexViewModel>;
+
+<h3 class="text-decoration-underline fst-italic">Registros Tabela Pessoas</h3>
+<br/>
+
+<nav aria-label="Pessoas navigation example">
+    @await Component.InvokeAsync("Pager", new { pagingList = Model })
+</nav>
+
+<form asp-action="PagedIndex" method="get">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id")
+            </th>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                Opções
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPessoa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.IdPessoa">Deletar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdPessoa">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdPessoa">Editar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>

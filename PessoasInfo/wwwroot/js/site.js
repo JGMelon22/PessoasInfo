@@ -3,13 +3,19 @@
 
 // Write your JavaScript code.
 let btnListar = document.getElementById("Listar");
+let btnListarPessoasPaginado = document.getElementById("ListarPessoasPaginado");
 let btnListarDetalhes = document.getElementById("ListarDetalhes");
 let gifCarregando = document.getElementById("CarregandoLista");
 
 btnListar.onclick = function () {
+    window.alert("Esta operação pegará 20% dos resultados da tabela de pessoas, o que poderá demorar um pouco...")
     gifCarregando.style.display = "block"
 }
 
 btnListarDetalhes.onclick = function () {
     gifCarregando.style.display = "block"
+}
+
+btnListarPessoasPaginado.onclick = function () {
+    gifCarregando.style.display = "block";
 }

@@ -5,10 +5,12 @@ namespace PessoasInfo.Controllers;
 public class PessoasController : Controller
 {
     private readonly IPessoaRepository _pessoaRepository;
+    private readonly IPagingService _pagingService;
 
-    public PessoasController(IPessoaRepository pessoaRepository)
+    public PessoasController(IPessoaRepository pessoaRepository, IPagingService pagingService)
     {
         _pessoaRepository = pessoaRepository;
+        _pagingService = pagingService;
     }
 
     // Get Pessoas
@@ -16,6 +18,15 @@ public class PessoasController : Controller
     public async Task<IActionResult> Index()
     {
         var pessoas = await _pessoaRepository.GetPessoas();
+        return pessoas != null
+            ? await Task.Run(() => View(pessoas))
+            : NoContent();
+    }
+
+    // Paged Pessoas
+    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    {
+        var pessoas = await _pagingService.PagingPessoas(pageIndex);
         return pessoas != null
             ? await Task.Run(() => View(pessoas))
             : NoContent();
