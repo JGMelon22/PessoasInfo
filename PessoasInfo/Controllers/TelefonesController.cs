@@ -87,7 +87,7 @@ public class TelefonesController : Controller
         if (id == null || telefone == null)
             return NotFound();
 
-        return await Task.Run(View(telefone));
+        return await Task.Run(() => View(telefone));
     }
 
     [HttpPost]

@@ -3,8 +3,9 @@
 
 // Write your JavaScript code.
 let btnListar = document.getElementById("Listar");
-let btnListarPessoasPaginado = document.getElementById("ListarPessoasPaginado");
 let btnListarDetalhes = document.getElementById("ListarDetalhes");
+let btnListarTelefones = document.getElementById("ListarTelefones");
+let btnListarPessoasPaginado = document.getElementById("ListarPessoasPaginado");
 let btnListarDetalhesPaginado = document.getElementById("ListarDetalhesPaginado");
 let gifCarregando = document.getElementById("CarregandoLista");
 
@@ -15,6 +16,11 @@ btnListar.onclick = function () {
 
 btnListarDetalhes.onclick = function () {
     window.alert("Esta operação pegará 5% dos resultados da tabela de detalhes, o que poderá demorar um pouco...")
+    gifCarregando.style.display = "block"
+}
+
+btnListarTelefones.onclick = function () {
+    window.alert("Esta operação pegará 5% dos resultados da tabela de telefones, o que poderá demorar um pouco...")
     gifCarregando.style.display = "block"
 }
 
