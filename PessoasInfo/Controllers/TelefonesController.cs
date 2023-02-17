@@ -50,4 +50,31 @@ public class TelefonesController : Controller
         await _telefoneRepository.AddTelefone(telefoneCreateViewModel);
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
+
+    // Editar Telefone
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        if (id != null || id <= 0)
+            return NotFound();
+
+        var telefone = await _telefoneRepository.GetTelefone(id);
+
+        return await Task.Run(() => View(telefone));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, TelefoneEditViewModel telefoneEditViewModel)
+    {
+        if (id != telefoneEditViewModel.IdTelefone)
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _telefoneRepository.UpdateTelefone(id, telefoneEditViewModel);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
 }
