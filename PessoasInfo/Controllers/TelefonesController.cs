@@ -1,3 +1,5 @@
+using PessoasInfo.ViewModels.Telefone;
+
 namespace PessoasInfo.Controllers;
 
 public class TelefonesController : Controller
@@ -29,5 +31,23 @@ public class TelefonesController : Controller
         var telefone = await _telefoneRepository.GetTelefone(id);
 
         return await Task.Run(() => View(telefone));
+    }
+
+    // Adicionar novo telefone
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        return await Task.Run(View);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(TelefoneCreateViewModel telefoneCreateViewModel)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        await _telefoneRepository.AddTelefone(telefoneCreateViewModel);
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 }
