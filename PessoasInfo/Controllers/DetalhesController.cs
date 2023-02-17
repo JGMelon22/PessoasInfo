@@ -5,10 +5,12 @@ namespace PessoasInfo.Controllers;
 public class DetalhesController : Controller
 {
     private readonly IDetalheRepository _detalheRepository;
+    private readonly IPagingService _pagingService;
 
-    public DetalhesController(IDetalheRepository detalheRepository)
+    public DetalhesController(IDetalheRepository detalheRepository, IPagingService pagingService)
     {
         _detalheRepository = detalheRepository;
+        _pagingService = pagingService;
     }
 
     // Get Detalhes
@@ -17,6 +19,16 @@ public class DetalhesController : Controller
     {
         var detalhes = await _detalheRepository.GetDetalhes();
 
+        return detalhes != null
+            ? await Task.Run(() => View(detalhes))
+            : NoContent();
+    }
+
+    // Paged Detalhes
+    [HttpGet]
+    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    {
+        var detalhes = await _pagingService.PagingDetalhes(pageIndex);
         return detalhes != null
             ? await Task.Run(() => View(detalhes))
             : NoContent();

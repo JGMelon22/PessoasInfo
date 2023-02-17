@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PessoasInfo.ViewModels.Detalhe;
 using PessoasInfo.ViewModels.Pessoa;
 using ReflectionIT.Mvc.Paging;
 
@@ -23,6 +24,22 @@ public class PagingService : IPagingService
                 Nome = x.Nome
             })
             .OrderBy(x => x.IdPessoa);
+
+        var model = await PagingList.CreateAsync(result, 50, pageIndex);
+        model.Action = "PagedIndex";
+        return model;
+    }
+
+    public async Task<PagingList<DetalheIndexViewModel>> PagingDetalhes(int pageIndex)
+    {
+        var result = _context.Detalhes
+            .AsNoTracking()
+            .Select(x => new DetalheIndexViewModel
+            {
+                IdDetalhe = x.IdDetalhe,
+                DetalheTexto = x.DetalheTexto
+            })
+            .OrderBy(x => x.IdDetalhe);
 
         var model = await PagingList.CreateAsync(result, 50, pageIndex);
         model.Action = "PagedIndex";

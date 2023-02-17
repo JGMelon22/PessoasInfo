@@ -36,9 +36,9 @@ public class DetalheRepository : IDetalheRepository
 
     public async Task<IEnumerable<DetalheIndexViewModel>> GetDetalhes()
     {
-        var getDetalhesQuery = @"SELECT TOP 100 IdDetalhe, 
-                                                DetalheTexto,
-                                                IdPessoa
+        var getDetalhesQuery = @"SELECT TOP(5) PERCENT IdDetalhe, 
+                                                       DetalheTexto,
+                                                       IdPessoa
                                  FROM Detalhes;";
 
         _dbConnection.Open();
