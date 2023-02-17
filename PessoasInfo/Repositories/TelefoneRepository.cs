@@ -36,10 +36,10 @@ public class TelefoneRepository : ITelefoneRepository
 
     public async Task<IEnumerable<TelefoneIndexlViewModel>> GetTelefones()
     {
-        var getTelefonesQuery = @"SELECT IdTelefone,
-                                         TelefoneTexto,
-                                         IdPessoa,
-                                         Ativo
+        var getTelefonesQuery = @"SELECT TOP(5) PERCENT IdTelefone,
+                                                        TelefoneTexto,
+                                                        IdPessoa,
+                                                        Ativo
                                   FROM Telefones;";
 
         _dbConnection.Open();
