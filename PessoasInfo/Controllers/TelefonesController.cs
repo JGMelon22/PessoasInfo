@@ -18,5 +18,16 @@ public class TelefonesController : Controller
             ? await Task.Run(() => View(telefones))
             : NoContent();
     }
-    
+
+    // Informações telefônicas
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        if (id != null || id <= 0)
+            return NotFound();
+
+        var telefone = await _telefoneRepository.GetTelefone(id);
+
+        return await Task.Run(() => View(telefone));
+    }
 }
