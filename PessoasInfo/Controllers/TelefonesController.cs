@@ -8,4 +8,15 @@ public class TelefonesController : Controller
     {
         _telefoneRepository = telefoneRepository;
     }
+
+    // GET Telefones
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        var telefones = await _telefoneRepository.GetTelefones();
+        return telefones != null
+            ? await Task.Run(() => View(telefones))
+            : NoContent();
+    }
+    
 }
