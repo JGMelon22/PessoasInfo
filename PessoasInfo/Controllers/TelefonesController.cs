@@ -77,4 +77,29 @@ public class TelefonesController : Controller
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
+
+    // Deletar Telefone
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var telefone = await _telefoneRepository.GetTelefone(id);
+
+        if (id == null || telefone == null)
+            return NotFound();
+
+        return await Task.Run(View(telefone));
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var telefone = await _telefoneRepository.GetTelefone(id);
+
+        if (id == null || telefone == null)
+            return NotFound();
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
 }
