@@ -5,10 +5,12 @@ namespace PessoasInfo.Controllers;
 public class TelefonesController : Controller
 {
     private readonly ITelefoneRepository _telefoneRepository;
+    private readonly IPagingService _pagingService;
 
-    public TelefonesController(ITelefoneRepository telefoneRepository)
+    public TelefonesController(ITelefoneRepository telefoneRepository, IPagingService pagingService)
     {
         _telefoneRepository = telefoneRepository;
+        _pagingService = pagingService;
     }
 
     // GET Telefones
@@ -16,6 +18,16 @@ public class TelefonesController : Controller
     public async Task<IActionResult> Index()
     {
         var telefones = await _telefoneRepository.GetTelefones();
+        return telefones != null
+            ? await Task.Run(() => View(telefones))
+            : NoContent();
+    }
+
+    // Paged Telefones
+    [HttpGet]
+    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    {
+        var telefones = await _pagingService.PagingTelefones(pageIndex);
         return telefones != null
             ? await Task.Run(() => View(telefones))
             : NoContent();
