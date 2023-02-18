@@ -67,7 +67,7 @@ public class TelefonesController : Controller
         {
             return RedirectToAction("Error", "Telefones");
         }
-        
+
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 
@@ -75,7 +75,7 @@ public class TelefonesController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        if (id != null || id <= 0)
+        if (id == null || id <= 0)
             return NotFound();
 
         var telefone = await _telefoneRepository.GetTelefone(id);
@@ -124,7 +124,7 @@ public class TelefonesController : Controller
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
-    
+
     // Error Telefone
     [HttpGet]
     public async Task<IActionResult> Error()

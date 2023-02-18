@@ -77,7 +77,8 @@ public class TelefoneRepository : ITelefoneRepository
     public async Task<TelefoneEditViewModel> UpdateTelefone(int id, TelefoneEditViewModel telefoneEditViewModel)
     {
         var updateTelefoneQuery = @"UPDATE Telefones
-                                    SET TelefoneTexto = @TelefoneTexto
+                                    SET TelefoneTexto = @TelefoneTexto,
+                                        Ativo = @Ativo
                                     WHERE IdTelefone = @IdTelefone";
 
         _dbConnection.Open();
@@ -85,6 +86,7 @@ public class TelefoneRepository : ITelefoneRepository
         await _dbConnection.ExecuteAsync(updateTelefoneQuery, new TelefoneEditViewModel
         {
             TelefoneTexto = telefoneEditViewModel.TelefoneTexto,
+            Ativo = telefoneEditViewModel.Ativo,
             IdTelefone = telefoneEditViewModel.IdTelefone
         });
 
