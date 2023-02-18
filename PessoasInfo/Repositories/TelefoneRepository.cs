@@ -87,7 +87,8 @@ public class TelefoneRepository : ITelefoneRepository
         {
             TelefoneTexto = telefoneEditViewModel.TelefoneTexto,
             Ativo = telefoneEditViewModel.Ativo,
-            IdTelefone = telefoneEditViewModel.IdTelefone
+            IdTelefone = telefoneEditViewModel.IdTelefone,
+            IdPessoa = telefoneEditViewModel.IdPessoa
         });
 
         _dbConnection.Close();

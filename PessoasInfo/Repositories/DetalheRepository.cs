@@ -85,7 +85,8 @@ public class DetalheRepository : IDetalheRepository
         await _dbConnection.ExecuteAsync(updateDetalheQuery, new DetalheEditViewModel
         {
             DetalheTexto = detalheEditViewModel.DetalheTexto,
-            IdDetalhe = detalheEditViewModel.IdDetalhe
+            IdDetalhe = detalheEditViewModel.IdDetalhe,
+            IdPessoa = detalheEditViewModel.IdPessoa
         });
 
         _dbConnection.Close();
