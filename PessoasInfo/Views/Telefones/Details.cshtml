@@ -1,0 +1,32 @@
+@model PessoasInfo.ViewModels.Telefone.TelefoneIndexlViewModel
+
+<h3 class="text-decoration-underline">Detalhes Telefônicos</h3>
+
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2 t">
+            @Html.DisplayNameFor(model => model.IdTelefone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdTelefone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefoneTexto):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelefoneTexto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ativo):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+    </dl>
+</div>
+<h4></h4>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdTelefone" class="btn btn-success">Editar</a>
+    <a asp-action="Index">Retornar a Listagem</a>
+</div>

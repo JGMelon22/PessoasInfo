@@ -8,10 +8,10 @@
         <thead>
         <tr>
             <td>
-                @Html.DisplayNameFor(model => model.IdDetalhe)
+                @Html.DisplayNameFor(model => model.IdPessoa)
             </td>
             <td>
-                @Html.DisplayNameFor(model => model.IdDetalhe)
+                @Html.DisplayNameFor(model => model.DetalheTexto)
             </td>
             <td>
                 Opções
@@ -29,9 +29,9 @@
                     @Html.DisplayFor(modelItem => item.DetalheTexto)
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.IdDetalhe">Deletar</a>
-                    <a asp-action="Details" asp-route-id="@item.IdDetalhe">Detalhes</a>
-                    <a asp-action="Edit" asp-route-id="@item.IdDetalhe">Editar</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdDetalhe">Deletar</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.IdDetalhe">Detalhes</a>
+                    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.IdDetalhe">Editar</a>
                 </td>
             </tr>
         }

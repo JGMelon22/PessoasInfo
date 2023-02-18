@@ -37,7 +37,7 @@ public class TelefonesController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if (id != null || id <= 0)
+        if (id == null || id <= 0)
             return NotFound();
 
         var telefone = await _telefoneRepository.GetTelefone(id);

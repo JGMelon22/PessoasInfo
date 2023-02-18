@@ -60,7 +60,10 @@ public class TelefoneRepository : ITelefoneRepository
             .Where(x => x.IdTelefone == id)
             .Select(y => new TelefoneIndexlViewModel
             {
-                TelefoneTexto = y.TelefoneTexto
+                IdTelefone = y.IdTelefone,
+                TelefoneTexto = y.TelefoneTexto,
+                Ativo = y.Ativo,
+                IdPessoa = y.IdTelefone
             })
             .FirstOrDefaultAsync();
 
