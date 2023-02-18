@@ -112,6 +112,8 @@ public class TelefonesController : Controller
         if (id == null || telefone == null)
             return NotFound();
 
+        await _telefoneRepository.DeleteTelefone(id);
+
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 }

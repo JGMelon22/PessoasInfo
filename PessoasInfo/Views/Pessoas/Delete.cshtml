@@ -1,6 +1,6 @@
 @model PessoasInfo.ViewModels.Pessoa.PessoaIndexViewModel
 
-<h3>Deseja deletar @Model.Nome do sistema?</h3>
+<h4>Deseja deletar "@Model.Nome" do sistema?</h4>
 <div>
     <hr/>
     <dl class="row">
@@ -14,7 +14,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdPessoa"/>
-        <input type="submit" value="Deletar" class="btn btn-danger"/> |
-        <a asp-action="Index">Retornar a Listagem</a>
+        <input type="submit" value="Deletar" class="btn btn-danger"/>
+        <a asp-action="Index" class="btn btn-sm btn-primary">Retornar a Listagem</a>
     </form>
 </div>

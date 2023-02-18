@@ -610,3 +610,6 @@ FodyWeavers.xsd
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
+
+# # Ignore .xlsx files
+*.xlsx
