@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Razor.Extensions;
 using Microsoft.EntityFrameworkCore;
 using PessoasInfo.ViewModels.Detalhe;
 using PessoasInfo.ViewModels.Pessoa;
@@ -55,7 +54,7 @@ public class PagingService : IPagingService
     {
         var result = _context.Telefones
             .AsNoTracking()
-            .Select(x => new TelefoneIndexlViewModel()
+            .Select(x => new TelefoneIndexlViewModel
             {
                 IdTelefone = x.IdTelefone,
                 TelefoneTexto = x.TelefoneTexto,

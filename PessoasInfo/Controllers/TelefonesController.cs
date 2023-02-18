@@ -4,8 +4,8 @@ namespace PessoasInfo.Controllers;
 
 public class TelefonesController : Controller
 {
-    private readonly ITelefoneRepository _telefoneRepository;
     private readonly IPagingService _pagingService;
+    private readonly ITelefoneRepository _telefoneRepository;
 
     public TelefonesController(ITelefoneRepository telefoneRepository, IPagingService pagingService)
     {
