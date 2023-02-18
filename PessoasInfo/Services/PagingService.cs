@@ -66,4 +66,32 @@ public class PagingService : IPagingService
         model.Action = "PagedIndex";
         return model;
     }
+
+    public async Task<PagingList<PessoaTelefoneDetalheDetailViewModel>> PagingPessoasInnerJoinEF(int pageIndex = 1)
+    {
+        var result = (from p in _context.Pessoas
+                join d in _context.Detalhes on p.IdPessoa equals d.IdPessoa
+                join t in _context.Telefones on p.IdPessoa equals t.IdTelefone
+                select new
+                {
+                    p.IdPessoa,
+                    p.Nome,
+                    t.TelefoneTexto,
+                    t.Ativo,
+                    d.DetalheTexto
+                }).AsNoTracking()
+            .Select(x => new PessoaTelefoneDetalheDetailViewModel()
+            {
+                IdPessoa = x.IdPessoa,
+                Nome = x.Nome,
+                TelefoneTexto = x.TelefoneTexto,
+                Ativo = x.Ativo,
+                DetalheTexto = x.DetalheTexto
+            })
+            .OrderBy(x => x.IdPessoa);
+
+        var model = await PagingList.CreateAsync(result, 50, pageIndex);
+        model.Action = "AllDetails";
+        return model;
+    }
 }

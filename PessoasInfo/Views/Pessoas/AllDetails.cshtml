@@ -1,0 +1,60 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ReflectionIT.Mvc.Paging.PagingList<PessoasInfo.ViewModels.Pessoa.PessoaTelefoneDetalheDetailViewModel>
+
+<h3 class="text-decoration-underline fst-italic">Registros Cruzados entre Pessoas, Detalhes e Detalhes</h3>
+<br/>
+
+<nav aria-label=">Registros Cruzados navigation example">
+    @await Component.InvokeAsync("Pager", new { pagingList = Model })
+</nav>
+
+<form asp-action="PagedIndex" method="get">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id Pessoa")
+            </th>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                @Html.DisplayName("Num. Telefone")
+            </th>
+            <th>
+                @Html.DisplayName("Ativo?")
+            </th>
+            <th>
+                @Html.DisplayName("Detalhe Texto")
+            </th>
+            <td>
+                Opções
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPessoa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneTexto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdPessoa">Deletar</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.IdPessoa">Detalhes</a>
+                    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.IdPessoa">Editar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
