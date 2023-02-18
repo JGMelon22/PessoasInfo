@@ -59,7 +59,15 @@ public class TelefonesController : Controller
         if (!ModelState.IsValid)
             return BadRequest();
 
-        await _telefoneRepository.AddTelefone(telefoneCreateViewModel);
+        try
+        {
+            await _telefoneRepository.AddTelefone(telefoneCreateViewModel);
+        }
+        catch (Exception)
+        {
+            return RedirectToAction("Error", "Telefones");
+        }
+        
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 
@@ -115,5 +123,12 @@ public class TelefonesController : Controller
         await _telefoneRepository.DeleteTelefone(id);
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
+    }
+    
+    // Error Telefone
+    [HttpGet]
+    public async Task<IActionResult> Error()
+    {
+        return await Task.Run(View);
     }
 }
