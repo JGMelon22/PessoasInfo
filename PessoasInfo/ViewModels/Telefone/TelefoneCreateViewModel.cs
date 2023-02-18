@@ -12,4 +12,6 @@ public class TelefoneCreateViewModel
     [Required(ErrorMessage = "É necessário informar a chave extrangeira IdPessoa!")]
     [Range(1, int.MaxValue, ErrorMessage = "Certifique-se que a chave extrangeira IdPessoa esteja correta!")]
     public int IdPessoa { get; set; }
+
+    [Display(Name = "Ativo?")] public bool Ativo { get; set; }
 }

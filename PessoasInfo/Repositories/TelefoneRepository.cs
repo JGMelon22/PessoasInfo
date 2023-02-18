@@ -18,15 +18,16 @@ public class TelefoneRepository : ITelefoneRepository
 
     public async Task<TelefoneCreateViewModel> AddTelefone(TelefoneCreateViewModel telefoneCreateViewModel)
     {
-        var addTelefone = @"INSERT INTO Telefones(TelefoneTexto, IdPessoa)
-                            VALUES = @TelefoneTexto, @IdPessoa);";
+        var addTelefone = @"INSERT INTO Telefones(TelefoneTexto, IdPessoa, Ativo)
+                                 VALUES(@TelefoneTexto, @IdPessoa, @Ativo);";
 
         _dbConnection.Open();
 
         await _dbConnection.ExecuteAsync(addTelefone, new TelefoneCreateViewModel
         {
             TelefoneTexto = telefoneCreateViewModel.TelefoneTexto,
-            IdPessoa = telefoneCreateViewModel.IdPessoa
+            IdPessoa = telefoneCreateViewModel.IdPessoa,
+            Ativo = telefoneCreateViewModel.Ativo
         });
 
         _dbConnection.Close();
