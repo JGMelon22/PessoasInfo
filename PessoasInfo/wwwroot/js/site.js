@@ -7,6 +7,7 @@ let btnListarDetalhes = document.getElementById("ListarDetalhes");
 let btnListarTelefones = document.getElementById("ListarTelefones");
 let btnListarPessoasPaginado = document.getElementById("ListarPessoasPaginado");
 let btnListarDetalhesPaginado = document.getElementById("ListarDetalhesPaginado");
+let btnListarTelefonesPaginado = document.getElementById("ListarTelefonesPaginado");
 let gifCarregando = document.getElementById("CarregandoLista");
 
 btnListar.onclick = function () {
@@ -29,5 +30,9 @@ btnListarPessoasPaginado.onclick = function () {
 }
 
 btnListarDetalhesPaginado.onclick = function () {
+    gifCarregando.style.display = "block"
+}
+
+btnListarTelefonesPaginado.onclick = function () {
     gifCarregando.style.display = "block"
 }
