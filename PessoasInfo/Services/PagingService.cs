@@ -80,7 +80,7 @@ public class PagingService : IPagingService
                     t.Ativo,
                     d.DetalheTexto
                 }).AsNoTracking()
-            .Select(x => new PessoaTelefoneDetalheDetailViewModel()
+            .Select(x => new PessoaTelefoneDetalheDetailViewModel
             {
                 IdPessoa = x.IdPessoa,
                 Nome = x.Nome,

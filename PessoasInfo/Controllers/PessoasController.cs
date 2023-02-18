@@ -32,6 +32,15 @@ public class PessoasController : Controller
             : NoContent();
     }
 
+    // Paged Pessoas Cruzadas
+    public async Task<IActionResult> AllDetails(int pageIndex = 1)
+    {
+        var pessoasCruzadas = await _pagingService.PagingPessoasInnerJoinEF(pageIndex);
+        return pessoasCruzadas != null
+            ? await Task.Run(() => View(pessoasCruzadas))
+            : NoContent();
+    }
+
     // Detalhe de uma pessoa 
     [HttpGet]
     public async Task<IActionResult> Details(int id)

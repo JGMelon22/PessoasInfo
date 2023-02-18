@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ReflectionIT.Mvc.Paging.PagingList<PessoasInfo.ViewModels.Pessoa.PessoaTelefoneDetalheDetailViewModel>
 
-<h3 class="text-decoration-underline fst-italic">Registros Cruzados entre Pessoas, Detalhes e Detalhes</h3>
+<h3 class="text-decoration-underline fst-italic">Registros Cruzados entre Pessoas, Detalhes e Telefones</h3>
 <br/>
 
 <nav aria-label=">Registros Cruzados navigation example">
@@ -47,6 +47,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DetalheTexto)
                 </td>
                 <td>
                     <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdPessoa">Deletar</a>
