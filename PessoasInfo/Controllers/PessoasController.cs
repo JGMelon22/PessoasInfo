@@ -24,9 +24,13 @@ public class PessoasController : Controller
     }
 
     // Paged Pessoas
-    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    public async Task<IActionResult> PagedIndex(string serchString, string sortOrder, int pageIndex = 1)
     {
-        var pessoas = await _pagingService.PagingPessoas(pageIndex);
+        ViewBag.NomeSortParam = string.IsNullOrEmpty(sortOrder) ? "nome_desc" : "";
+        ViewBag.IdSortParam = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+        //ViewBag.CurrentFilter = serchString;
+
+        var pessoas = await _pagingService.PagingPessoas(serchString, sortOrder, pageIndex);
         return pessoas != null
             ? await Task.Run(() => View(pessoas))
             : NoContent();
