@@ -9,14 +9,20 @@
 </nav>
 
 <form asp-action="PagedIndex" method="get">
+    <div>
+        Buscar por um Detalhe: <input type="text" name="searchString" value="@ViewBag.CurrentFilter"/>
+        <input class="btn btn-success btn-sm" type="submit" value="Pesquisar"/>
+        <a class="btn btn-light btn-sm border" asp-action="PagedIndex">Limpar Filtro</a>
+    </div>
+    <h4></h4>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
             <th>
-                @Html.DisplayName("Id Detalhe")
+                <a id="idLink" class="text-black" asp-action="PagedIndex" asp-route-sortOrder="@ViewBag.IdSortParam">@Html.DisplayName("Id Detalhe")</a>
             </th>
             <th>
-                @Html.DisplayName("Detalhe Texto")
+                <a id="detalheLink" class="text-black" asp-action="PagedIndex" asp-route-sortOrder="@ViewBag.DetalheSortParam">@Html.DisplayName("Detalhe Texto")</a>
             </th>
             <th>
                 Opções
