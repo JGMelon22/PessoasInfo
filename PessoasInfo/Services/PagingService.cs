@@ -16,7 +16,8 @@ public class PagingService : IPagingService
     }
 
     // Paginação Pessoas
-    public async Task<PagingList<PessoaIndexViewModel>> PagingPessoas(int pageIndex = 1)
+    public async Task<PagingList<PessoaIndexViewModel>> PagingPessoas(string searchString, string sortOrder,
+        int pageIndex = 1)
     {
         var result = _context.Pessoas
             .AsNoTracking()
@@ -26,6 +27,26 @@ public class PagingService : IPagingService
                 Nome = x.Nome
             })
             .OrderBy(x => x.IdPessoa);
+
+        // Verifica searchString
+        // ReflectionIT.Mvc.Paging não aceita parametro IOrderedQueryable, precisa de um cast 
+        if (!string.IsNullOrEmpty(searchString))
+            result = (IOrderedQueryable<PessoaIndexViewModel>)result.Where(x => x.Nome.Contains(searchString));
+
+        // Sorting
+        switch (sortOrder)
+        {
+            case "nome_desc":
+                result = result.OrderByDescending(x => x.Nome);
+                break;
+            case "id_desc":
+                result = result.OrderByDescending(x => x.IdPessoa);
+                break;
+
+            default:
+                result = result.OrderBy(x => x.IdPessoa);
+                break;
+        }
 
         var model = await PagingList.CreateAsync(result, 50, pageIndex);
         model.Action = "PagedIndex";
