@@ -9,17 +9,23 @@
 </nav>
 
 <form asp-action="PagedIndex" method="get">
+    <div>
+        Buscar por um Telefone: <input type="number" name="searchString" value="@ViewBag.CurrentFilter"/>
+        <input class="btn btn-success btn-sm" type="submit" value="Pesquisar"/>
+        <a class="btn btn-light btn-sm border" asp-action="PagedIndex">Limpar Filtro</a>
+    </div>
+    <h4></h4>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
             <th>
-                @Html.DisplayName("Id Telefone")
+                <a id="idLink" class="text-black" asp-action="PagedIndex" asp-route-sortOrder="@ViewBag.IdSortParam">@Html.DisplayName("Id Telefone")</a>
             </th>
             <th>
-                @Html.DisplayName("Num. Telefone")
+                <a id="telefoneLink" class="text-black" asp-action="PagedIndex" asp-route-sortOrder="@ViewBag.TelefoneSortParam">@Html.DisplayName("Num. Telefone")</a>
             </th>
             <th>
-                @Html.DisplayName("Ativo?")
+                <a id="ativoLink" class="text-black" asp-action="PagedIndex" asp-route-sortOrder="@ViewBag.AtivoSortParam">@Html.DisplayName("Ativo?")</a>
             </th>
             <th>
                 Opções

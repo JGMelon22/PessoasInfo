@@ -27,9 +27,9 @@ public class TelefonesController : Controller
     [HttpGet]
     public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
-        ViewBag.TelefoneSort = string.IsNullOrEmpty(sortOrder) ? "telefone_desc" : "";
-        ViewBag.AtivoSort = string.IsNullOrEmpty(sortOrder) ? "ativo_desc" : "";
-        ViewBag.IdSort = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+        ViewBag.TelefoneSortParam = string.IsNullOrEmpty(sortOrder) ? "telefone_desc" : "";
+        ViewBag.AtivoSortParam = string.IsNullOrEmpty(sortOrder) ? "ativo_desc" : "";
+        ViewBag.IdSortParam = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
         ViewBag.CurrentFilter = searchString;
 
         var telefones = await _pagingService.PagingTelefones(searchString, sortOrder, pageIndex);
