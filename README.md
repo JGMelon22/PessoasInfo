@@ -30,5 +30,7 @@ Neste mini projeto é possível também: enviar emails para recuperação de sen
 - Microsoft.EntityFrameworkCore.Design </br>
 - Newtonsoft.Json </br></br>
 
+![image](https://user-images.githubusercontent.com/73988556/219966807-2fdd3918-b1d4-4806-8d69-6cf8c1d76bb8.png)
+
 <h4>⚠️ Atenção ⚠️</h4>
 <span>Modifique a string de conexão de acordo com a sua necessidade:<code>"Server=myServerAddress;Database=DapperJoins;User Id=sa;Password=YourPassword;TrustServerCertificate=True;"</code></span></br>
