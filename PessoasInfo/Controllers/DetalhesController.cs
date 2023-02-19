@@ -28,6 +28,10 @@ public class DetalhesController : Controller
     [HttpGet]
     public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
+        ViewBag.DetalheSortParam = string.IsNullOrEmpty(sortOrder) ? "detalhe_desc" : "";
+        ViewBag.IdSortParam = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+        ViewBag.CurrentFilter = searchString;
+
         var detalhes = await _pagingService.PagingDetalhes(searchString, sortOrder, pageIndex);
         return detalhes != null
             ? await Task.Run(() => View(detalhes))
