@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PessoasInfo.ViewModels.Detalhe;
 using PessoasInfo.ViewModels.Pessoa;
@@ -93,7 +94,8 @@ public class PagingService : IPagingService
     }
 
     // Paginação Telefones
-    public async Task<PagingList<TelefoneIndexlViewModel>> PagingTelefones(int pageIndex = 1)
+    public async Task<PagingList<TelefoneIndexlViewModel>> PagingTelefones(string searchString, string sortOrder,
+        int pageIndex = 1)
     {
         var result = _context.Telefones
             .AsNoTracking()
@@ -104,6 +106,33 @@ public class PagingService : IPagingService
                 Ativo = x.Ativo
             })
             .OrderBy(x => x.IdTelefone);
+
+        // Verifica searchString
+        // ReflectionIT.Mvc.Paging não aceita parametro IOrderedQueryable, precisa de um cast
+        if (!string.IsNullOrEmpty(searchString))
+            result = (IOrderedQueryable<TelefoneIndexlViewModel>)result.Where(x =>
+                x.TelefoneTexto.Contains(searchString));
+
+        // Sorting
+        switch (sortOrder)
+        {
+            case "telefone_desc":
+                result = result.OrderByDescending(x => x.TelefoneTexto);
+                break;
+
+            case "ativo_desc":
+                result = result.OrderByDescending(x => x.Ativo);
+                break;
+
+            case "id_desc":
+                result = result.OrderByDescending(x => x.IdTelefone);
+                break;
+
+            default:
+                result = result.OrderBy(x => x.IdTelefone);
+                break;
+        }
+
 
         var model = await PagingList.CreateAsync(result, 50, pageIndex);
         model.Action = "PagedIndex";
