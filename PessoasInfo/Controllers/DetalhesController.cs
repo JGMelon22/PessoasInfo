@@ -26,9 +26,9 @@ public class DetalhesController : Controller
 
     // Paged Detalhes
     [HttpGet]
-    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
-        var detalhes = await _pagingService.PagingDetalhes(pageIndex);
+        var detalhes = await _pagingService.PagingDetalhes(searchString, sortOrder, pageIndex);
         return detalhes != null
             ? await Task.Run(() => View(detalhes))
             : NoContent();

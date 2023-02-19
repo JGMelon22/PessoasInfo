@@ -25,9 +25,9 @@ public class TelefonesController : Controller
 
     // Paged Telefones
     [HttpGet]
-    public async Task<IActionResult> PagedIndex(int pageIndex = 1)
+    public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
-        var telefones = await _pagingService.PagingTelefones(pageIndex);
+        var telefones = await _pagingService.PagingTelefones(searchString, sortOrder, pageIndex);
         return telefones != null
             ? await Task.Run(() => View(telefones))
             : NoContent();
