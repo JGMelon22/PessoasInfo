@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using PessoasInfo.ViewModels.Detalhe;
 using PessoasInfo.ViewModels.Pessoa;
 using PessoasInfo.ViewModels.Telefone;

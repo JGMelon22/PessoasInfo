@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using PessoasInfo.Models;
 
 namespace PessoasInfo.Controllers;
 

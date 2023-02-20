@@ -1,6 +1,4 @@
-using System.Data;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using PessoasInfo.Repositories;
 using PessoasInfo.Services;
 using ReflectionIT.Mvc.Paging;
@@ -22,6 +20,7 @@ builder.Services.AddScoped<IDbConnection>(x =>
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IDetalheRepository, DetalheRepository>();
 builder.Services.AddScoped<ITelefoneRepository, TelefoneRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 // Paging Service Injection
 builder.Services.AddScoped<IPagingService, PagingService>();

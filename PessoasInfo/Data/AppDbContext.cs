@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using PessoasInfo.Models;
-
 namespace PessoasInfo.Data;
 
 public class AppDbContext : DbContext

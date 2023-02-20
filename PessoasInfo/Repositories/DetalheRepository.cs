@@ -1,6 +1,4 @@
-using System.Data;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 using PessoasInfo.ViewModels.Detalhe;
 
 namespace PessoasInfo.Repositories;
