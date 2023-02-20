@@ -1,5 +1,4 @@
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using PessoasInfo.ViewModels.Report;
 
 namespace PessoasInfo.Services;
@@ -21,17 +20,15 @@ public class ReportService : IReportService
         var relatoriosGerados = new List<ReportViewModel>(); // Monta uma lista com os relatorios encontrados 
 
         foreach (var item in filePath) // Adiciona a lista o nome dos relatórios
-        {
-            relatoriosGerados.Add(new ReportViewModel()
+            relatoriosGerados.Add(new ReportViewModel
             {
                 ReportName = Path.GetFileName(item)
             });
-        }
 
         return await Task.FromResult(relatoriosGerados.ToList());
     }
 
-    public Task GerarRelatorio()
+    public async Task GerarRelatorio()
     {
         var dt = new DataTable();
         dt.Columns.AddRange(new DataColumn[5] // Monta o cabeçalho do relatório
@@ -44,16 +41,14 @@ public class ReportService : IReportService
         });
 
         // Invoca a query responsáver por obter os dados cruzados
-        var registros = _reportRepository.GetPessoasInnerJoin().Result;
+        var registros = await _reportRepository.GetPessoasInnerJoin();
 
         // Popula as linhas do relatório c/ os registros obtidos do banco
         foreach (var registro in registros)
-        {
             dt.Rows.Add(registro.IdPessoa, registro.Nome,
                 registro.Telefones.Select(x => x.TelefoneTexto).FirstOrDefault(),
                 registro.Telefones.Select(x => x.Ativo).FirstOrDefault(),
                 registro.Detalhes.Select(x => x.DetalheTexto).FirstOrDefault());
-        }
 
         var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "Relatorios");
 
@@ -65,8 +60,6 @@ public class ReportService : IReportService
         using var wb = new XLWorkbook();
         wb.Worksheets.Add(dt, "PessoasCruzadas");
         wb.SaveAs(folderPath + Path.DirectorySeparatorChar + "RelatorioPessoasCruzadas.xlsx");
-
-        return Task.CompletedTask;
     }
 
     public async Task<byte[]> DownloadRelatorio(string reportName)
@@ -79,8 +72,15 @@ public class ReportService : IReportService
         return await Task.FromResult(bytes);
     }
 
-    public Task DeleteRelatorio()
+    public Task DeleteRelatorio(string reportName)
     {
-        throw new NotImplementedException();
+        // Busca pelo caminho do arquivo
+        var path = Path.Combine(Path.Combine(Environment.CurrentDirectory, "Relatorios" +
+                                                                           Path.DirectorySeparatorChar) + reportName);
+        // Se encontrar, deleta o arquivo
+        if (File.Exists(path))
+            File.Delete(path);
+
+        return Task.CompletedTask;
     }
 }

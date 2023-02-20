@@ -16,11 +16,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IDbConnection>(x =>
     new SqlConnection(builder.Configuration.GetConnectionString("Default")));
 
-// DI ModelServices
+// DI Respositories
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IDetalheRepository, DetalheRepository>();
 builder.Services.AddScoped<ITelefoneRepository, TelefoneRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+
+// DI Services
+builder.Services.AddScoped<IReportService, ReportService>();
 
 // Paging Service Injection
 builder.Services.AddScoped<IPagingService, PagingService>();

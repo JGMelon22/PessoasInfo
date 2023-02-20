@@ -7,5 +7,5 @@ public interface IReportService
     Task<List<ReportViewModel>> GetRelatorios(); // Listar os relatorios gerados
     Task GerarRelatorio();
     Task<byte[]> DownloadRelatorio(string reportName);
-    Task DeleteRelatorio();
+    Task DeleteRelatorio(string reportName);
 }
