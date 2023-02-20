@@ -1,0 +1,35 @@
+@model IEnumerable<PessoasInfo.ViewModels.Report.ReportViewModel>
+
+@{
+    ViewData["Title"] = "Relatórios Gerados";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Nome do Arquivo")
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportName)
+                </td>
+                <td>
+                    @Html.ActionLink("Download", "DownloadReport", new { reportName = item.ReportName })
+                </td>
+                <td>
+                    @Html.ActionLink("Deletar", "DeleteReport", new { reportName = item.ReportName })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

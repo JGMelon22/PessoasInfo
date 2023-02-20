@@ -20,7 +20,7 @@ public class RelatoriosController : Controller
         }
         catch (Exception)
         {
-            return RedirectToAction("Error");
+            return RedirectToAction("Error", "Relatorios");
         }
     }
 
@@ -37,6 +37,13 @@ public class RelatoriosController : Controller
     public async Task<IActionResult> DeleteReport(string reportName)
     {
         await _reportService.DeleteRelatorio(reportName);
+        return RedirectToAction("Index", "Relatorios");
+    }
+
+    // Gerar relatorio
+    public async Task<IActionResult> CreateReport()
+    {
+        await _reportService.GerarRelatorio();
         return RedirectToAction("Index", "Relatorios");
     }
 
