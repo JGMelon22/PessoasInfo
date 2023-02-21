@@ -15,7 +15,6 @@ public class GraficosController : Controller
     {
         var graphService = new GraphService(_context);
         var graph = await graphService.GenerateGraph();
-
         return await Task.Run(() => View(graph));
     }
 }
