@@ -9,6 +9,7 @@ let btnListarPessoasPaginado = document.getElementById("ListarPessoasPaginado");
 let btnListarDetalhesPaginado = document.getElementById("ListarDetalhesPaginado");
 let btnListarTelefonesPaginado = document.getElementById("ListarTelefonesPaginado");
 let btnListarPessoasCruzadasPaginado = document.getElementById("ListarPessoasCruzadas");
+let btnRegistrarUsuario = document.getElementById("RegistrarUsuario");
 let gifCarregando = document.getElementById("CarregandoLista");
 
 btnListar.onclick = function () {
@@ -39,5 +40,9 @@ btnListarTelefonesPaginado.onclick = function () {
 }
 
 btnListarPessoasCruzadasPaginado.onclick = function () {
+    gifCarregando.style.display = "block"
+}
+
+btnRegistrarUsuario.onclick = function () {
     gifCarregando.style.display = "block"
 }
