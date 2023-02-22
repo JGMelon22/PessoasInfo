@@ -16,15 +16,15 @@ public class TelefoneRepository : ITelefoneRepository
 
     public async Task<TelefoneCreateViewModel> AddTelefone(TelefoneCreateViewModel telefoneCreateViewModel)
     {
-        var addTelefone = @"INSERT INTO Telefones(TelefoneTexto, IdPessoa, Ativo)
-                                 VALUES(@TelefoneTexto, @IdPessoa, @Ativo);";
+        var addTelefone = @"INSERT INTO Telefones(TelefoneTexto, PessoaId, Ativo)
+                                 VALUES(@TelefoneTexto, @PessoaId, @Ativo);";
 
         _dbConnection.Open();
 
         await _dbConnection.ExecuteAsync(addTelefone, new TelefoneCreateViewModel
         {
             TelefoneTexto = telefoneCreateViewModel.TelefoneTexto,
-            IdPessoa = telefoneCreateViewModel.IdPessoa,
+            PessoaId = telefoneCreateViewModel.PessoaId,
             Ativo = telefoneCreateViewModel.Ativo
         });
 
@@ -37,7 +37,7 @@ public class TelefoneRepository : ITelefoneRepository
     {
         var getTelefonesQuery = @"SELECT TOP(5) PERCENT IdTelefone,
                                                         TelefoneTexto,
-                                                        IdPessoa,
+                                                        PessoaId,
                                                         Ativo
                                   FROM Telefones;";
 
@@ -62,7 +62,7 @@ public class TelefoneRepository : ITelefoneRepository
                 IdTelefone = y.IdTelefone,
                 TelefoneTexto = y.TelefoneTexto,
                 Ativo = y.Ativo,
-                IdPessoa = y.IdTelefone
+                PessoaId = y.IdTelefone
             })
             .FirstOrDefaultAsync();
 
@@ -86,7 +86,7 @@ public class TelefoneRepository : ITelefoneRepository
             TelefoneTexto = telefoneEditViewModel.TelefoneTexto,
             Ativo = telefoneEditViewModel.Ativo,
             IdTelefone = telefoneEditViewModel.IdTelefone,
-            IdPessoa = telefoneEditViewModel.IdPessoa
+            PessoaId = telefoneEditViewModel.PessoaId
         });
 
         _dbConnection.Close();

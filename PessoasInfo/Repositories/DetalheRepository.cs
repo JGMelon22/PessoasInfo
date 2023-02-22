@@ -16,15 +16,15 @@ public class DetalheRepository : IDetalheRepository
 
     public async Task<DetalheCreateViewModel> AddDetalhe(DetalheCreateViewModel detalheCreateViewModel)
     {
-        var addDetalheQuery = @"INSERT INTO Detalhes(DetalheTexto, IdPessoa)
-                                VALUES(@DetalheTexto, @IdPessoa);";
+        var addDetalheQuery = @"INSERT INTO Detalhes(DetalheTexto, PessoaId)
+                                VALUES(@DetalheTexto, @PessoaId);";
 
         _dbConnection.Open();
 
         await _dbConnection.ExecuteAsync(addDetalheQuery, new DetalheCreateViewModel
         {
             DetalheTexto = detalheCreateViewModel.DetalheTexto,
-            IdPessoa = detalheCreateViewModel.IdPessoa
+            PessoaId = detalheCreateViewModel.PessoaId
         });
 
         _dbConnection.Close();
@@ -36,7 +36,7 @@ public class DetalheRepository : IDetalheRepository
     {
         var getDetalhesQuery = @"SELECT TOP(5) PERCENT IdDetalhe, 
                                                        DetalheTexto,
-                                                       IdPessoa
+                                                       PessoaId
                                  FROM Detalhes;";
 
         _dbConnection.Open();
@@ -59,7 +59,7 @@ public class DetalheRepository : IDetalheRepository
             {
                 IdDetalhe = y.IdDetalhe,
                 DetalheTexto = y.DetalheTexto,
-                IdPessoa = y.IdPessoa
+                PessoaId = y.PessoaId
             })
             .FirstOrDefaultAsync();
 
@@ -84,7 +84,7 @@ public class DetalheRepository : IDetalheRepository
         {
             DetalheTexto = detalheEditViewModel.DetalheTexto,
             IdDetalhe = detalheEditViewModel.IdDetalhe,
-            IdPessoa = detalheEditViewModel.IdPessoa
+            PessoaId = detalheEditViewModel.PessoaId
         });
 
         _dbConnection.Close();

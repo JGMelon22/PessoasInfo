@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using PessoasInfo.Repositories;
 using PessoasInfo.Services;
@@ -35,6 +36,11 @@ builder.Services.AddPaging(options =>
     options.HtmlIndicatorDown = " <span>&darr;</span>";
     options.HtmlIndicatorUp = " <span>&uarr;</span>";
 });
+
+// DI Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

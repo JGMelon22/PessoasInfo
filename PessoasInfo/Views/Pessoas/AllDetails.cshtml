@@ -37,7 +37,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdPessoa)
+                    @Html.DisplayFor(modelItem => item.PessoaId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
@@ -52,9 +52,9 @@
                     @Html.DisplayFor(modelItem => item.DetalheTexto)
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.IdPessoa">Deletar</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.IdPessoa">Detalhes</a>
-                    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.IdPessoa">Editar</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.PessoaId">Deletar</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.PessoaId">Detalhes</a>
+                    <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.PessoaId">Editar</a>
                 </td>
             </tr>
         }

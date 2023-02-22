@@ -45,7 +45,7 @@ public class ReportService : IReportService
 
         // Popula as linhas do relatório c/ os registros obtidos do banco
         foreach (var registro in registros)
-            dt.Rows.Add(registro.IdPessoa, registro.Nome,
+            dt.Rows.Add(registro.PessoaId, registro.Nome,
                 registro.Telefones.Select(x => x.TelefoneTexto).FirstOrDefault(),
                 registro.Telefones.Select(x => x.Ativo).FirstOrDefault(),
                 registro.Detalhes.Select(x => x.DetalheTexto).FirstOrDefault());

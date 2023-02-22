@@ -92,7 +92,7 @@ public class PessoasController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, PessoaEditViewModel pessoaEditViewModel)
     {
-        if (id != pessoaEditViewModel.IdPessoa)
+        if (id != pessoaEditViewModel.PessoaId)
             return NotFound();
 
         if (!ModelState.IsValid)

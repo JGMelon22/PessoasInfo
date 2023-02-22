@@ -6,6 +6,6 @@ public class TelefoneIndexlViewModel
 
     [Display(Name = "Num. Telefone")] public string TelefoneTexto { get; set; } = string.Empty!;
 
-    [Display(Name = "Id Chave Pessoa")] public int IdPessoa { get; set; }
+    [Display(Name = "Id Chave Pessoa")] public int PessoaId { get; set; }
     [Display(Name = "Ativo?")] public bool Ativo { get; set; }
 }

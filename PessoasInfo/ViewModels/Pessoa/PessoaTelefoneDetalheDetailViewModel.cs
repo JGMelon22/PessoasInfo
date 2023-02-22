@@ -2,7 +2,7 @@ namespace PessoasInfo.ViewModels.Pessoa;
 
 public class PessoaTelefoneDetalheDetailViewModel
 {
-    [Key] public int IdPessoa { get; set; }
+    [Key] public int PessoaId { get; set; }
     public string Nome { get; set; } = string.Empty!;
     public int IdDetalhe { get; set; }
     public string? DetalheTexto { get; set; }

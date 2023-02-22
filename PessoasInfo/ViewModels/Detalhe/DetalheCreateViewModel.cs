@@ -8,7 +8,7 @@ public class DetalheCreateViewModel
     public string DetalheTexto { get; set; } = string.Empty!;
 
     [Display(Name = "Id Chave Pessoa")]
-    [Required(ErrorMessage = "É necessário informar a chave extrangeira IdPessoa!")]
-    [Range(1, int.MaxValue, ErrorMessage = "Certifique-se que a chave extrangeira IdPessoa esteja correta!")]
-    public int IdPessoa { get; set; }
+    [Required(ErrorMessage = "É necessário informar a chave extrangeira PessoaId!")]
+    [Range(1, int.MaxValue, ErrorMessage = "Certifique-se que a chave extrangeira PessoaId esteja correta!")]
+    public int PessoaId { get; set; }
 }

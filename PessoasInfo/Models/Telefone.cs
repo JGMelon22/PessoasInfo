@@ -17,7 +17,9 @@ public class Telefone
     [MaxLength(13)]
     public string TelefoneTexto { get; set; } = string.Empty!;
 
-    [Required] [Range(1, int.MaxValue)] public int IdPessoa { get; set; }
+    [ForeignKey("PessoaId")] public int PessoaId { get; set; }
+
+    public Pessoa Pessoas { get; set; }
 
     [Column("Ativo", TypeName = "BIT")] public bool Ativo { get; set; }
 }

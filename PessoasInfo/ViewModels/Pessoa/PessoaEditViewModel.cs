@@ -2,7 +2,7 @@ namespace PessoasInfo.ViewModels.Pessoa;
 
 public class PessoaEditViewModel
 {
-    public int IdPessoa { get; set; }
+    public int PessoaId { get; set; }
 
     [Display(Name = "Nome")]
     [Required(ErrorMessage = "O campo nome deve ser informado!")]

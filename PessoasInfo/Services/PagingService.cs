@@ -22,10 +22,10 @@ public class PagingService : IPagingService
             .AsNoTracking()
             .Select(x => new PessoaIndexViewModel
             {
-                IdPessoa = x.IdPessoa,
+                PessoaId = x.PessoaId,
                 Nome = x.Nome
             })
-            .OrderBy(x => x.IdPessoa);
+            .OrderBy(x => x.PessoaId);
 
         // Verifica searchString
         // ReflectionIT.Mvc.Paging não aceita parametro IOrderedQueryable, precisa de um cast 
@@ -39,11 +39,11 @@ public class PagingService : IPagingService
                 result = result.OrderByDescending(x => x.Nome);
                 break;
             case "id_desc":
-                result = result.OrderByDescending(x => x.IdPessoa);
+                result = result.OrderByDescending(x => x.PessoaId);
                 break;
 
             default:
-                result = result.OrderBy(x => x.IdPessoa);
+                result = result.OrderBy(x => x.PessoaId);
                 break;
         }
 
@@ -140,11 +140,11 @@ public class PagingService : IPagingService
     public async Task<PagingList<PessoaTelefoneDetalheDetailViewModel>> PagingPessoasInnerJoinEF(int pageIndex = 1)
     {
         var result = (from p in _context.Pessoas
-                join d in _context.Detalhes on p.IdPessoa equals d.IdPessoa
-                join t in _context.Telefones on p.IdPessoa equals t.IdTelefone
+                join d in _context.Detalhes on p.PessoaId equals d.PessoaId
+                join t in _context.Telefones on p.PessoaId equals t.IdTelefone
                 select new
                 {
-                    p.IdPessoa,
+                    p.PessoaId,
                     p.Nome,
                     t.TelefoneTexto,
                     t.Ativo,
@@ -152,13 +152,13 @@ public class PagingService : IPagingService
                 }).AsNoTracking()
             .Select(x => new PessoaTelefoneDetalheDetailViewModel
             {
-                IdPessoa = x.IdPessoa,
+                PessoaId = x.PessoaId,
                 Nome = x.Nome,
                 TelefoneTexto = x.TelefoneTexto,
                 Ativo = x.Ativo,
                 DetalheTexto = x.DetalheTexto
             })
-            .OrderBy(x => x.IdPessoa);
+            .OrderBy(x => x.PessoaId);
 
         var model = await PagingList.CreateAsync(result, 50, pageIndex);
         model.Action = "AllDetails";

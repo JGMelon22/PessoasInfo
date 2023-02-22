@@ -9,6 +9,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     {
     }
 
+    // public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Pessoa> Pessoas { get; set; }
     public DbSet<Telefone> Telefones { get; set; }
     public DbSet<Detalhe> Detalhes { get; set; }

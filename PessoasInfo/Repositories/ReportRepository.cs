@@ -16,9 +16,9 @@ public class ReportRepository : IReportRepository
         var getPessoasInnerJoinQuery = @"SELECT *
                                          FROM Pessoas p
                                              INNER JOIN Telefones T 
-                                             ON p.IdPessoa = T.IdPessoa
+                                             ON p.PessoaId = T.PessoaId
                                          INNER JOIN Detalhes D 
-                                         ON p.IdPessoa = D.IdPessoa;";
+                                         ON p.PessoaId = D.PessoaId;";
 
         _dbConnection.Open();
 
@@ -29,12 +29,12 @@ public class ReportRepository : IReportRepository
             {
                 Pessoa pessoa1;
 
-                if (!lookup.TryGetValue(pessoaFunc.IdPessoa, out pessoa1))
+                if (!lookup.TryGetValue(pessoaFunc.PessoaId, out pessoa1))
                 {
                     pessoa1 = pessoaFunc;
                     pessoa1.Telefones = new List<Telefone>();
                     pessoa1.Detalhes = new List<Detalhe>();
-                    lookup.Add(pessoa1.IdPessoa, pessoa1);
+                    lookup.Add(pessoa1.PessoaId, pessoa1);
                 }
 
                 pessoa1.Telefones.Add(telefoneFunc);

@@ -16,5 +16,7 @@ public class Detalhe
     [StringLength(255, MinimumLength = 3)]
     public string DetalheTexto { get; set; } = string.Empty!;
 
-    [Required] [Range(1, int.MaxValue)] public int IdPessoa { get; set; }
+    [ForeignKey("PessoaId")] public int PessoaId { get; set; }
+
+    public Pessoa Pessoas { get; set; }
 }

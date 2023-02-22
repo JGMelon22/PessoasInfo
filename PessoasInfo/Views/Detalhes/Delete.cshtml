@@ -8,7 +8,7 @@
             @Html.DisplayName("Id Chave Pessoa Atrelada")
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdPessoa)
+            @Html.DisplayFor(model => model.PessoaId)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DetalheTexto)
@@ -19,7 +19,7 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="IdPessoa">
+        <input type="hidden" asp-for="PessoaId">
         <input type="submit" Value="Deletar" class="btn btn-danger"/>
         <a asp-action="Index" class="btn btn-sm btn-primary">Retornar a Listagem</a>
     </form>

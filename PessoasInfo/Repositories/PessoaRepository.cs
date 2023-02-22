@@ -33,10 +33,10 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task<IEnumerable<PessoaIndexViewModel>> GetPessoas()
     {
-        var getPessoasQuery = @"SELECT TOP(5) PERCENT IdPessoa,
+        var getPessoasQuery = @"SELECT TOP(5) PERCENT PessoaId,
                                                        Nome
                                             FROM Pessoas
-                                            ORDER BY IdPessoa;";
+                                            ORDER BY PessoaId;";
 
         _dbConnection.Open();
 
@@ -50,19 +50,19 @@ public class PessoaRepository : IPessoaRepository
     public async Task<PessoaIndexViewModel> GetPessoa(int id)
     {
         if (id == null && id <= 0)
-            throw new Exception("IdPessoa inválido ou não encontrado!");
+            throw new Exception("PessoaId inválido ou não encontrado!");
 
         var pessoa = await _context.Pessoas
-            .Where(x => x.IdPessoa == id)
+            .Where(x => x.PessoaId == id)
             .Select(y => new PessoaIndexViewModel
             {
-                IdPessoa = y.IdPessoa,
+                PessoaId = y.PessoaId,
                 Nome = y.Nome
             })
             .FirstOrDefaultAsync();
 
         if (pessoa == null)
-            throw new Exception("IdPessoa não encontrado!");
+            throw new Exception("PessoaId não encontrado!");
 
         return pessoa;
     }
@@ -70,17 +70,17 @@ public class PessoaRepository : IPessoaRepository
     public async Task<PessoaEditViewModel> UpdatePessoa(int id, PessoaEditViewModel pessoaEditViewModel)
     {
         if (id == null || id <= 0)
-            throw new Exception("IdPessoa inválido ou não encontrado!");
+            throw new Exception("PessoaId inválido ou não encontrado!");
 
         var updatePessoaQuery = @"UPDATE Pessoas
                                   SET Nome = @Nome
-                                  WHERE IdPessoa = @IdPessoa;";
+                                  WHERE PessoaId = @PessoaId;";
 
         _dbConnection.Open();
 
         await _dbConnection.ExecuteAsync(updatePessoaQuery, new
         {
-            pessoaEditViewModel.Nome, pessoaEditViewModel.IdPessoa
+            pessoaEditViewModel.Nome, pessoaEditViewModel.PessoaId
         });
 
         _dbConnection.Close();
@@ -91,25 +91,25 @@ public class PessoaRepository : IPessoaRepository
     public async Task DeletePessoa(int id)
     {
         if (id == null || id <= 0)
-            throw new Exception("IdPessoa inválido ou não encontrado!");
+            throw new Exception("PessoaId inválido ou não encontrado!");
 
         var deletePessoaQuery = @"DELETE 
                                   FROM Detalhes
-                                  WHERE IdPessoa = @IdPessoa;
+                                  WHERE PessoaId = @PessoaId;
 
                                   DELETE 
                                   FROM Telefones
-                                  WHERE IdPessoa = @IdPessoa;
+                                  WHERE PessoaId = @PessoaId;
 
                                   DELETE 
                                   FROM Pessoas
-                                  WHERE IdPessoa = @IdPessoa;";
+                                  WHERE PessoaId = @PessoaId;";
 
         _dbConnection.Open();
 
         await _dbConnection.ExecuteAsync(deletePessoaQuery, new
         {
-            IdPessoa = id
+            PessoaId = id
         });
 
         _dbConnection.Close();
