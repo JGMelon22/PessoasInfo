@@ -42,6 +42,20 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+// Identity Service - Senha,lockout e usuario
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 6;
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
