@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using PessoasInfo.ViewModels.ForgotPassword;
 using PessoasInfo.ViewModels.Login;
 using PessoasInfo.ViewModels.Register;
 
@@ -6,13 +7,16 @@ namespace PessoasInfo.Controllers;
 
 public class AccountsController : Controller
 {
+    private readonly ISendGridEmailService _sendGridEmailService;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+        ISendGridEmailService sendGridEmailService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _sendGridEmailService = sendGridEmailService;
     }
 
     [HttpGet]
@@ -84,6 +88,45 @@ public class AccountsController : Controller
     {
         await _signInManager.SignOutAsync();
         return await Task.Run(() => RedirectToAction("Index", "Home"));
+    }
+
+    // Password Reset
+    [HttpGet]
+    public IActionResult ForgotPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPasswordViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = await _userManager.FindByEmailAsync(forgotPasswordViewModel.Email);
+            if (user == null)
+                return RedirectToAction("ForgotPasswordConfirmation");
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("ResetPassword", "Accounts", new { userId = user.Id, code },
+                HttpContext.Request.Scheme);
+
+            await _sendGridEmailService.SendEmailAsync(forgotPasswordViewModel.Email,
+                "Email de confirmação para reset de senha",
+                "Por favor, redefina sua senha clicando neste " +
+                "<a href=\"" + callbackUrl + "\">link</a>");
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        return View(forgotPasswordViewModel);
+    }
+
+    // Confirmar reset de senha
+    [HttpGet]
+    public IActionResult ForgotPasswordConfirmation()
+    {
+        return View();
     }
 
     [HttpGet]

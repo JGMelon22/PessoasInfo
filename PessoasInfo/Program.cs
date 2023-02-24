@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using PessoasInfo.Helpers;
 using PessoasInfo.Repositories;
 using PessoasInfo.Services;
 using ReflectionIT.Mvc.Paging;
@@ -25,6 +26,10 @@ builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 // DI Services
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddTransient<ISendGridEmailService, SendGridEmailService>();
+
+// Type checking para o serviço de registro para api secret
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("SendGrid"));
 
 // Paging Service Injection
 builder.Services.AddScoped<IPagingService, PagingService>();
