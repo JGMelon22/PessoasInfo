@@ -32,7 +32,7 @@ public class SendGridEmailService : ISendGridEmailService
         var client = new SendGridClient(apiKey);
         var msg = new SendGridMessage
         {
-            From = new EmailAddress("jgvasconcellosm22@outlook.com"), // Nome/e-mail da sua conta SendGrid
+            From = new EmailAddress("sendgrid@email.com"), // Nome/e-mail da sua conta SendGrid
             Subject = subject,
             PlainTextContent = message,
             HtmlContent = message

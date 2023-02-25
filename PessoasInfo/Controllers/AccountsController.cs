@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using PessoasInfo.ViewModels.ForgotPassword;
 using PessoasInfo.ViewModels.Login;
 using PessoasInfo.ViewModels.Register;
+using PessoasInfo.ViewModels.ResetPassword;
 
 namespace PessoasInfo.Controllers;
 
@@ -122,9 +123,47 @@ public class AccountsController : Controller
         return View(forgotPasswordViewModel);
     }
 
+    // Reset Password
+    [HttpGet]
+    public IActionResult ResetPassword(string code = null)
+    {
+        return code == null ? View("Error") : View();
+    }
+
+
     // Confirmar reset de senha
     [HttpGet]
     public IActionResult ForgotPasswordConfirmation()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = await _userManager.FindByEmailAsync(resetPasswordViewModel.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "Usuário não encontrado!");
+                return View();
+            }
+
+            var result =
+                await _userManager.ResetPasswordAsync(user, resetPasswordViewModel.Code,
+                    resetPasswordViewModel.Password);
+
+            if (result.Succeeded) return RedirectToAction("ResetPasswordConfirmation");
+        }
+
+        return View(resetPasswordViewModel);
+    }
+
+    // Reset Password Confirmation
+    [HttpGet]
+    public IActionResult ResetPasswordConfirmation()
     {
         return View();
     }
