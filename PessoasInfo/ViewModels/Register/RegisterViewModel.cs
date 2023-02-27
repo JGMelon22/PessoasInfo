@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace PessoasInfo.ViewModels.Register;
 
 public class RegisterViewModel
@@ -23,4 +25,9 @@ public class RegisterViewModel
     public string ConfirmPassword { get; set; } = string.Empty!;
 
     public string? ReturnUrl { get; set; }
+
+    // Lista de cargos
+    public IEnumerable<SelectListItem>? RoleList { get; set; }
+
+    [Display(Name = "Cargo Selecionado")] public string? RoleSelected { get; set; }
 }

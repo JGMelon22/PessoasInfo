@@ -9,3 +9,21 @@
         <p class="lead">De um simples usuário Linux para o mundo 🐧🌎<br/><code>Em memória de um grande amigo: Cristiano Noronha</code></p>
     </main>
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <h3 class="text-success text-sm-start">Usuário Admin</h3>
+    }
+
+    else if (User.IsInRole("Comum"))
+    {
+        <h3 class="text-info text-sm-start">Usuário comum</h3>
+    }
+
+    else
+    {
+        <h3 class="text-black text-sm-start">Usuário básico</h3>
+    }
+}

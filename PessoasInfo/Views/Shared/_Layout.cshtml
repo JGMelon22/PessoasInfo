@@ -35,7 +35,7 @@
                             <a class="nav-link text-light">Hello, @(UserManager.GetUserName(User))</a>
                         </li>
                         <span>&nbsp;</span>
-                        <li class="nav-item border border-light bg-danger bg-opacity-75 rounded-1">
+                        <li class="nav-item border border-light bg-danger small bg-opacity-75 rounded-1">
                             <a class="nav-link text-white" asp-controller="Accounts" asp-action="Logout">LogOff</a>
                         </li>
 
@@ -84,16 +84,12 @@
                     else
                     {
                         <span>&nbsp;</span>
-                        <li class="nav-item border border-light bg-info bg-opacity-50 rounded-1">
+                        <li class="nav-item border border-light small bg-info bg-opacity-50 rounded-1">
                             <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
                         </li>
                         <span>&nbsp;</span>
                         <li class="nav-item border border-light bg-success bg-opacity-75 rounded-1">
                             <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Register">Registrar Novo Usuário</a>
-                        </li>
-                        <span>&nbsp;</span>
-                        <li class="nav-item border border-light bg-danger bg-opacity-75 rounded-1">
-                            <a class="nav-link text-white" asp-controller="Accounts" asp-action="Logout">LogOff</a>
                         </li>
                     }
                 </ul>

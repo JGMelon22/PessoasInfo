@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PessoasInfo.ViewModels.ForgotPassword;
 using PessoasInfo.ViewModels.Login;
 using PessoasInfo.ViewModels.Register;
@@ -8,22 +9,56 @@ namespace PessoasInfo.Controllers;
 
 public class AccountsController : Controller
 {
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ISendGridEmailService _sendGridEmailService;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
 
     public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
-        ISendGridEmailService sendGridEmailService)
+        ISendGridEmailService sendGridEmailService, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _sendGridEmailService = sendGridEmailService;
+        _roleManager = roleManager;
     }
 
     [HttpGet]
     public async Task<IActionResult> Register(string? returnUrl)
     {
+        // Verifica se o role existe ou não
+        if (!await _roleManager.RoleExistsAsync("Comum"))
+        {
+            await _roleManager.CreateAsync(new IdentityRole("Comum"));
+            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            await _roleManager.CreateAsync(new IdentityRole("Basico"));
+        }
+
+        // Dropdown list
+        var listItems = new List<SelectListItem>();
+        listItems.Add(new SelectListItem
+        {
+            Value = "Comum",
+            Text = "Comum"
+        });
+
+        listItems.Add(new SelectListItem
+        {
+            Value = "Basico",
+            Text = "Basico"
+        });
+
+        listItems.Add(new SelectListItem
+        {
+            Value = "Admin",
+            Text = "Admin"
+        });
+
         var registerViewModel = new RegisterViewModel();
+
+        // Atribui os valores (cargos) a dropdown list
+        registerViewModel.RoleList = listItems;
+
         registerViewModel.ReturnUrl = returnUrl;
         return await Task.Run(() => View(registerViewModel));
     }
@@ -45,6 +80,18 @@ public class AccountsController : Controller
         // Caso ocorra com exito, loga 
         if (result.Succeeded)
         {
+            // Verifica se exiwste atributo role e qual foi selecionado
+            if (registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length > 0 &&
+                registerViewModel.RoleSelected == "Comum")
+                await _userManager.AddToRoleAsync(user, "Comum");
+
+            else if (registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length > 0 &&
+                     registerViewModel.RoleSelected == "Basico")
+                await _userManager.AddToRoleAsync(user, "Basico");
+
+            else
+                await _userManager.AddToRoleAsync(user, "Admin");
+
             await _signInManager.SignInAsync(user, false);
             return LocalRedirect(returnUrl);
         }
