@@ -11,10 +11,10 @@ public class AccountsController : Controller
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ISendGridEmailService _sendGridEmailService;
-    private readonly SignInManager<IdentityUser> _signInManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
 
-    public AccountsController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+    public AccountsController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
         ISendGridEmailService sendGridEmailService, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;

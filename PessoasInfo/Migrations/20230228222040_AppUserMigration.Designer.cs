@@ -12,8 +12,8 @@ using PessoasInfo.Data;
 namespace PessoasInfo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230222191834_InitialIdentityMigration")]
-    partial class InitialIdentityMigration
+    [Migration("20230228222040_AppUserMigration")]
+    partial class AppUserMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,10 @@ namespace PessoasInfo.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +144,10 @@ namespace PessoasInfo.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -300,6 +308,13 @@ namespace PessoasInfo.Migrations
                     b.HasIndex("PessoaId");
 
                     b.ToTable("Telefones");
+                });
+
+            modelBuilder.Entity("PessoasInfo.Models.AppUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

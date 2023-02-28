@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @model PessoasInfo.ViewModels.Login.LoginViewModel
+@inject SignInManager<AppUser> SignInManager;
 
 <form asp-controller="Accounts" asp-action="Login" asp-route-returnurl="@Model.ReturnUrl" method="post"
       role="form">
