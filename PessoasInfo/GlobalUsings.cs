@@ -5,3 +5,4 @@ global using PessoasInfo.Data;
 global using System.Data;
 global using PessoasInfo.Models;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;

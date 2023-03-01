@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using PessoasInfo.Services;
 
 namespace PessoasInfo.Controllers;

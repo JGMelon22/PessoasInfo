@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using PessoasInfo.Helpers;
 using PessoasInfo.Repositories;

@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> SignInManager
+﻿@inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 <!DOCTYPE html>
@@ -83,6 +82,11 @@
                         <ul class="nav">
                             <li class="nav-pills">
                             <a id="btnUsers" type="button" class="btn btn-outline-light" aria-current="page" asp-controller="Users" asp-action="Index">Listar Usuários</a>
+                        </ul>
+                        <span>&nbsp;</span>
+                        <ul class="nav">
+                            <li class="nav-pills">
+                            <a id="btnUsers" type="button" class="btn btn-outline-warning" aria-current="page" asp-controller="Roles" asp-action="Index">Listar Cargos</a>
                         </ul>
                     }
 

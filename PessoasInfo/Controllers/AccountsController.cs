@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PessoasInfo.ViewModels.ForgotPassword;
 using PessoasInfo.ViewModels.Login;
