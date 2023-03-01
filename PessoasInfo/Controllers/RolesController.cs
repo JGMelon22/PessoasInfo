@@ -1,3 +1,4 @@
+using PessoasInfo.Services;
 using PessoasInfo.ViewModels.Role;
 
 namespace PessoasInfo.Controllers;
@@ -38,28 +39,16 @@ public class RolesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Upsert(RoleViewModel roleViewModel)
     {
-        // Se já existir, retorna
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        // Cargo já existe
         if (await _roleManager.RoleExistsAsync(roleViewModel.Name))
-            return RedirectToAction("Index");
+            return await Task.Run(() => RedirectToAction("Index"));
 
-        // Ademais, cria um novo
-        if (string.IsNullOrEmpty(roleViewModel.Id))
-        {
-            await _roleManager.CreateAsync(new IdentityRole { Name = roleViewModel.Name });
-        }
+        var roleService = new EditRoleService(_context, _roleManager);
 
-        // Atualiza
-        else
-        {
-            var roleDb = await _context.Roles.FirstOrDefaultAsync(x => x.Id == roleViewModel.Id);
-            if (roleDb == null)
-                return RedirectToAction(nameof(Index));
-
-            roleDb.Name = roleViewModel.Name;
-            roleDb.NormalizedName = roleDb.Name.ToUpper();
-
-            var result = await _roleManager.UpdateAsync(roleDb);
-        }
+        await roleService.Upsert(roleViewModel);
 
         return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
@@ -69,18 +58,14 @@ public class RolesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(string id)
     {
-        var roleDb = await _context.Roles.FirstOrDefaultAsync(x => x.Id == id);
+        var editRoleService = new EditRoleService(_context, _roleManager);
 
-        if (roleDb == null)
-            return RedirectToAction(nameof(Index));
-
-        // Cargos associados ao usuário
-        var userRolesForThisRole = await _context.UserRoles.Where(x => x.RoleId == id).CountAsync();
-
-        if (userRolesForThisRole > 0)
+        if (id == null)
             return await Task.Run(() => RedirectToAction(nameof(Index)));
 
-        await _roleManager.DeleteAsync(roleDb);
-        return RedirectToAction(nameof(Index));
+        if (ModelState.IsValid)
+            await editRoleService.Delete(id);
+
+        return await Task.Run(() => RedirectToAction(nameof(Index)));
     }
 }
