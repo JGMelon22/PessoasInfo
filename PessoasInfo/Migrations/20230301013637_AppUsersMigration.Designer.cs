@@ -12,8 +12,8 @@ using PessoasInfo.Data;
 namespace PessoasInfo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230228222040_AppUserMigration")]
-    partial class AppUserMigration
+    [Migration("20230301013637_AppUsersMigration")]
+    partial class AppUsersMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

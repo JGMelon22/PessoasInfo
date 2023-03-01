@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PessoasInfo.Migrations
 {
     /// <inheritdoc />
-    public partial class AppUserMigration : Migration
+    public partial class AppUsersMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
