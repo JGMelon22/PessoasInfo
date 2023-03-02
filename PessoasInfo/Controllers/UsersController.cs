@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using PessoasInfo.Services;
 using PessoasInfo.ViewModels.UserClaim;
 
@@ -123,24 +122,12 @@ public class UsersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ManageUserClaims(UserClaimsViewModel userClaimsViewModel)
     {
-        var user = await _userManager.FindByIdAsync(userClaimsViewModel.UserId); // Busca pelo usuário
+        if (!ModelState.IsValid)
+            return BadRequest();
 
-        if (user == null)
-            return NotFound();
+        var manageUserClaimsService = new ManageUserClaimsService(_userManager);
 
-        var claims = await _userManager.GetClaimsAsync(user); // Claims do usuário
-        var result = await _userManager.RemoveClaimsAsync(user, claims); // Remove claim 
-
-        if (!result.Succeeded)
-            return View(userClaimsViewModel);
-
-        result = await _userManager.AddClaimsAsync(user,
-            userClaimsViewModel.Claims // Adiciona o claim selecionado na view
-                .Where(x => x.IsSelected)
-                .Select(y => new Claim(y.ClaimType, y.IsSelected.ToString())));
-
-        if (result.Succeeded)
-            return await Task.Run(() => View(userClaimsViewModel));
+        await manageUserClaimsService.ManageClaims(userClaimsViewModel);
 
         return RedirectToAction(nameof(Index));
     }
