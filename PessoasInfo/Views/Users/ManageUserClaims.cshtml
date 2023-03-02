@@ -1,0 +1,35 @@
+@model PessoasInfo.ViewModels.UserClaim.UserClaimsViewModel
+
+<form method="post">
+    <input asp-for="@Model.UserId" hidden/>
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar Permissões de Usuário</h3>
+        </div>
+        <div class="card-body">
+            @for (var i = 0; i < Model.Claims.Count; i++)
+            {
+                <div class="m-2 form-check">
+                    <input asp-for="@Model.Claims[i].ClaimType" hidden/>
+                    <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input"/>
+                    <label class="form-check-label" asp-for="@Model.Claims[i].IsSelected">
+                        @Model.Claims[i].ClaimType
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input id="ClaimEdit" type="submit" value="Atualizar" class="btn btn-success"/>
+            <a asp-action="Index" class="btn btn-warning">Retornar</a>
+        </div>
+
+
+        @* Por algum motivo, a arquivo site.js não funciona com <a> *@
+        <script>
+                document.getElementById("ClaimEdit").onclick = function () {
+                        window.alert("Permissões alteradas com exito!")
+                    }
+            </script>
+    </div>
+</form>
