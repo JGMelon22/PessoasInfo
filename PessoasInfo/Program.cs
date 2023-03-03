@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using PessoasInfo.Authorizations;
 using PessoasInfo.Helpers;
 using PessoasInfo.Repositories;
 using PessoasInfo.Services;
@@ -45,6 +46,14 @@ builder.Services.AddPaging(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+// Autorização por Claim
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyAdminChecker", policy => policy.Requirements.Add(new OnlyAdminAuthorization()));
+    options.AddPolicy("TestClaims", policy => policy.RequireAssertion(context =>
+        context.User.HasClaim(x => x.Type == "Criar")));
+});
 
 // Identity Service - Senha,lockout e usuario
 builder.Services.Configure<IdentityOptions>(options =>
