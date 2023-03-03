@@ -14,19 +14,20 @@
 {
     @if (User.IsInRole("Admin"))
     {
-        <h3 class="text-success text-sm-start">Usuário Admin</h3>
+        <h4 class="text-success text-sm-start">Usuário Admin</h4>
     }
 
     else if (User.IsInRole("Comum"))
     {
-        <h3 class="text-info text-sm-start">Usuário comum</h3>
+        <h4 class="text-info text-sm-start">Usuário comum</h4>
     }
 
     else
     {
-        <h3 class="text-black text-sm-start">Usuário básico</h3>
+        <h4 class="text-black text-sm-start">Usuário básico</h4>
     }
 }
 
-<a class="btn btn-primary small rounded-pill" asp-controller="Accesses" asp-action="OnlyAdminChecker">Somente Adms</a>
-<a class="btn btn-warning small rounded-pill" asp-controller="Accesses" asp-action="CheckClaims">Permissão de Criação</a>
+@* <a class="btn btn-info small rounded-pill" asp-controller="Accesses" asp-action="AnonymousUser">Usuário Anônimo</a> *@
+@* <a class="btn btn-success small rounded-pill" asp-controller="Accesses" asp-action="OnlyAdminChecker">Somente Adms</a> *@
+@* <a class="btn btn-warning small rounded-pill" asp-controller="Accesses" asp-action="CheckClaims">Permissão de Criação</a> *@

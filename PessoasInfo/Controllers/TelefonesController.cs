@@ -25,6 +25,7 @@ public class TelefonesController : Controller
 
     // Paged Telefones
     [HttpGet]
+    [Authorize(Roles = "Comum, Admin")]
     public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
         ViewBag.TelefoneSortParam = string.IsNullOrEmpty(sortOrder) ? "telefone_desc" : "";
@@ -40,6 +41,7 @@ public class TelefonesController : Controller
 
     // Informações telefônicas
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Details(int id)
     {
         if (id == null || id <= 0)
@@ -52,6 +54,7 @@ public class TelefonesController : Controller
 
     // Adicionar novo telefone
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Create()
     {
         return await Task.Run(View);
@@ -78,6 +81,7 @@ public class TelefonesController : Controller
 
     // Editar Telefone
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Edit(int id)
     {
         if (id == null || id <= 0)
@@ -105,6 +109,7 @@ public class TelefonesController : Controller
 
     // Deletar Telefone
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Delete(int id)
     {
         var telefone = await _telefoneRepository.GetTelefone(id);

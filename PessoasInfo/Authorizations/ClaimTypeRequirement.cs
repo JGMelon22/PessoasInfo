@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace PessoasInfo.Authorizations;
 
 public class ClaimTypeRequirement : IAuthorizationRequirement

@@ -11,6 +11,7 @@ public class RelatoriosController : Controller
 
     // Lista relatorios
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> Index()
     {
         try
@@ -26,6 +27,7 @@ public class RelatoriosController : Controller
 
     // Baixar relatorio
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> DownloadReport(string reportName)
     {
         var bytes = await _reportService.DownloadRelatorio(reportName);
@@ -34,6 +36,7 @@ public class RelatoriosController : Controller
 
     // Deleta relatorio
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> DeleteReport(string reportName)
     {
         await _reportService.DeleteRelatorio(reportName);
@@ -41,6 +44,7 @@ public class RelatoriosController : Controller
     }
 
     // Gerar relatorio
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> CreateReport()
     {
         await _reportService.GerarRelatorio();

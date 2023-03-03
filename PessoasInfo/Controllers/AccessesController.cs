@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace PessoasInfo.Controllers;
 
 public class AccessesController : Controller
@@ -12,23 +10,43 @@ public class AccessesController : Controller
     }
 
     // Por cargo
-    [Authorize(Roles = "Basico, Comum")]
-    public IActionResult BasicAndNormalAccess()
+    [Authorize(Roles = "Basico")]
+    public IActionResult BasicAccess()
+    {
+        return View();
+    }
+
+    // Por cargo
+    [Authorize(Roles = "Comum")]
+    public IActionResult NormalAccess()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Comum, Admin")]
+    public IActionResult AdminAndComumAccess()
     {
         return View();
     }
 
     // Por política - Verifica se o usuário é admin ou não
     [Authorize(Policy = "OnlyAdminChecker")]
-    public async Task<IActionResult> OnlyAdminChecker()
+    public IActionResult OnlyAdminChecker()
     {
-        return await Task.Run(View);
+        return View();
     }
 
     // Autenticação por claim
     [Authorize(Policy = "TestClaims")]
-    public async Task<IActionResult> CheckClaims()
+    public IActionResult CheckClaims()
     {
-        return await Task.Run(View);
+        return View();
+    }
+
+    // Apenas usuário não logado
+    [AllowAnonymous]
+    public IActionResult AnonymousUser()
+    {
+        return View();
     }
 }

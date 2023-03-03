@@ -11,6 +11,7 @@ public class GraficosController : Controller
         _context = context;
     }
 
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> SimpleGraph()
     {
         var graphService = new GraphService(_context);

@@ -24,6 +24,8 @@ public class PessoasController : Controller
     }
 
     // Paged Pessoas
+    [HttpGet]
+    [Authorize(Roles = "Comum, Admin")]
     public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
         ViewBag.NomeSortParam = string.IsNullOrEmpty(sortOrder) ? "nome_desc" : "";
@@ -47,6 +49,7 @@ public class PessoasController : Controller
 
     // Detalhe de uma pessoa 
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Details(int id)
     {
         if (id == null || id <= 0)
@@ -59,6 +62,7 @@ public class PessoasController : Controller
 
     // Adicionar nova pessoa
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Create()
     {
         return await Task.Run(View);
@@ -78,6 +82,7 @@ public class PessoasController : Controller
 
     // Editar pessoa
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Edit(int id)
     {
         if (id == null || id <= 0)
@@ -105,6 +110,7 @@ public class PessoasController : Controller
 
     // Delete Pessoa
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Delete(int id)
     {
         var pessoa = await _pessoaRepository.GetPessoa(id);

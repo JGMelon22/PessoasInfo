@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-
 namespace PessoasInfo.Authorizations;
 
 public class OnlyAdminAuthorization : AuthorizationHandler<OnlyAdminAuthorization>, IAuthorizationRequirement

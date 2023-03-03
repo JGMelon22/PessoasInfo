@@ -26,6 +26,7 @@ public class DetalhesController : Controller
 
     // Paged Detalhes
     [HttpGet]
+    [Authorize(Roles = "Comum, Admin")]
     public async Task<IActionResult> PagedIndex(string searchString, string sortOrder, int pageIndex = 1)
     {
         ViewBag.DetalheSortParam = string.IsNullOrEmpty(sortOrder) ? "detalhe_desc" : "";
@@ -40,6 +41,7 @@ public class DetalhesController : Controller
 
     // Informações do Detalhe 
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Details(int id)
     {
         if (id == null || id <= 0)
@@ -52,6 +54,7 @@ public class DetalhesController : Controller
 
     // Delete Detalhe
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Delete(int id)
     {
         var detalhe = await _detalheRepository.GetDetalhe(id);
@@ -64,6 +67,7 @@ public class DetalhesController : Controller
 
     // Adicionar novo detalhe
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Create()
     {
         return await Task.Run(View);
@@ -71,6 +75,7 @@ public class DetalhesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Create(DetalheCreateViewModel detalheCreateViewModel)
     {
         if (!ModelState.IsValid)
@@ -105,6 +110,7 @@ public class DetalhesController : Controller
 
     // Editar Detalhe
     [HttpGet]
+    [Authorize(Policy = "TestClaims")]
     public async Task<IActionResult> Edit(int id)
     {
         if (id == null || id <= 0)

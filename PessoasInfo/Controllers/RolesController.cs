@@ -19,6 +19,7 @@ public class RolesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> Index()
     {
         var roles = await _context.Roles.ToListAsync();
@@ -27,6 +28,7 @@ public class RolesController : Controller
 
     // Upsert
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminChecker")]
     public async Task<IActionResult> Upsert(string id)
     {
         if (string.IsNullOrEmpty(id)) return View();

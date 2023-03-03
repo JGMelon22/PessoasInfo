@@ -22,6 +22,7 @@ public class AccountsController : Controller
         _roleManager = roleManager;
     }
 
+    [Authorize(Policy = "OnlyAdminChecker")]
     [HttpGet]
     public async Task<IActionResult> Register(string? returnUrl)
     {
