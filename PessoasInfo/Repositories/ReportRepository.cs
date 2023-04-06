@@ -13,34 +13,38 @@ public class ReportRepository : IReportRepository
 
     public async Task<List<Pessoa>> GetPessoasInnerJoin()
     {
-        var getPessoasInnerJoinQuery = @"SELECT *
+        var getPessoasInnerJoinQuery = @"SELECT p.PessoaId,
+                                                p.Nome,
+                                                t.IdTelefone,
+                                                t.TelefoneTexto,
+                                                t.PessoaId,
+                                                t.Ativo,
+                                                d.IdDetalhe,
+                                                d.DetalheTexto,
+                                                d.PessoaId
                                          FROM Pessoas p
-                                             INNER JOIN Telefones T 
-                                             ON p.PessoaId = T.PessoaId
-                                         INNER JOIN Detalhes D 
+                                             INNER JOIN Telefones T
+                                         ON p.PessoaId = T.PessoaId
+                                             INNER JOIN Detalhes D
                                          ON p.PessoaId = D.PessoaId;";
 
         _dbConnection.Open();
 
-        var lookup = new Dictionary<int, Pessoa>();
+        // var lookup = new Dictionary<int, Pessoa>();
 
         var result = await _dbConnection.QueryAsync<Pessoa, Telefone, Detalhe, Pessoa>(getPessoasInnerJoinQuery,
-            (pessoaFunc, telefoneFunc, detalheFunc) =>
+            (pessoa, telefone, detalhe) =>
             {
-                Pessoa pessoa1;
+                // Pessoa pessoa1;
 
-                if (!lookup.TryGetValue(pessoaFunc.PessoaId, out pessoa1))
-                {
-                    pessoa1 = pessoaFunc;
-                    pessoa1.Telefones = new List<Telefone>();
-                    pessoa1.Detalhes = new List<Detalhe>();
-                    lookup.Add(pessoa1.PessoaId, pessoa1);
-                }
+                if (pessoa.Telefones == null) pessoa.Telefones = new List<Telefone>();
 
-                pessoa1.Telefones.Add(telefoneFunc);
-                pessoa1.Detalhes.Add(detalheFunc);
+                if (pessoa.Detalhes == null) pessoa.Detalhes = new List<Detalhe>();
 
-                return pessoa1;
+                pessoa.Telefones.Add(telefone);
+                pessoa.Detalhes.Add(detalhe);
+
+                return pessoa;
             },
             splitOn: "IdTelefone, IdDetalhe"
         );
